@@ -1,0 +1,60 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        // jcenter()
+    }
+    dependencies {
+    }
+}
+
+allprojects {
+    apply plugin: "eclipse"
+    apply plugin: "idea"
+
+    version = "0.1.0"
+    ext {
+        appName = "Einar gegen alle"
+        gdxVersion = "1.9.8"
+    }
+
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://oss.sonatype.org/content/repositories/releases/" }
+        // maven { url "https://jitpack.io" }
+        jcenter()
+    }
+}
+
+project(":desktop") {
+    apply plugin: "java"
+
+    dependencies {
+        compile project(":core")
+        compile "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
+        compile "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
+    }
+}
+project(":core") {
+    apply plugin: "java"
+
+    dependencies {
+        compile "com.badlogicgames.gdx:gdx:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+        compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
+        compile "net.onedaybeard.artemis:artemis-odb:2.2.0-SNAPSHOT"
+        compile "com.google.guava:guava:27.0-jre"
+        compile "com.google.code.gson:gson:2.8.5"
+        compile "com.kotcrab.vis:vis-ui:1.4.1"
+        compile fileTree(dir: 'libs', include: '*.jar')
+    }
+}
+
+tasks.eclipse.doLast {
+    delete ".project"
+}

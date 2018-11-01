@@ -1,0 +1,66 @@
+apply plugin: "java"
+
+sourceCompatibility = 1.9
+
+project.ext.mainClassName = "de.einar.desktop.DesktopLauncher"
+project.ext.assetsDir = new File("../core/assets");
+
+task run(dependsOn: classes, type: JavaExec) {
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+}
+
+task debug(dependsOn: classes, type: JavaExec) {
+    main = project.mainClassName
+    classpath = sourceSets.main.runtimeClasspath
+    standardInput = System.in
+    workingDir = project.assetsDir
+    ignoreExitValue = true
+    debug = true
+}
+
+jar {
+	from {configurations.compile.collect {zipTree(it)}}
+
+    manifest {
+        attributes (
+        	"Main-Class": project.mainClassName,
+        	"Implementation-Version": project.version
+        )
+    }
+}
+jar.dependsOn classes
+
+
+task dist(type: Zip){
+	archiveName appName+'_'+version+'.zip'
+
+	from file("../LICENSE");
+	from file("../CONTRIBUTORS.md");
+	from files(project.assetsDir);
+	from jar.outputs.files
+}
+
+dist.dependsOn jar
+
+
+eclipse {
+    project {
+        name = appName + "-desktop"
+        linkedResource name: 'assets', type: '2', location: 'PARENT-1-PROJECT_LOC/core/assets'
+    }
+}
+
+task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
+  doLast {
+    def classpath = new XmlParser().parse(file(".classpath"))
+    new Node(classpath, "classpathentry", [ kind: 'src', path: 'assets' ]);
+    def writer = new FileWriter(file(".classpath"))
+    def printer = new XmlNodePrinter(new PrintWriter(writer))
+    printer.setPreserveWhitespace(true)
+    printer.print(classpath)
+  }
+}
