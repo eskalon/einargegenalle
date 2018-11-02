@@ -6,8 +6,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.kotcrab.vis.ui.VisUI;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
-import de.einar.ecs.factory.EnemyFactory;
-import de.einar.ecs.factory.PlayerFactory;
+import de.einar.ecs.factories.EnemyFactory;
+import de.einar.ecs.factories.PlayerFactory;
+import de.einar.ecs.factories.PropsFactory;
 
 /**
  * This screen is the first screen shown to the user when he starts the game.
@@ -29,8 +30,10 @@ public class SplashScreen extends BaseScreen {
 		game.getAssetManager().load(MainMenuScreen.class);
 		game.getAssetManager().load(GameIntroScreen.class);
 		game.getAssetManager().load(GameScreen.class);
+		game.getAssetManager().load(GameEndScreen.class);
 		game.getAssetManager().load(PlayerFactory.class);
 		game.getAssetManager().load(EnemyFactory.class);
+		game.getAssetManager().load(PropsFactory.class);
 	}
 
 	@Override
@@ -62,13 +65,16 @@ public class SplashScreen extends BaseScreen {
 		game.getAssetManager().injectAssets(game.getScreen("mainMenu"));
 		game.getAssetManager().injectAssets(game.getScreen("game-intro"));
 		game.getAssetManager().injectAssets(game.getScreen("game"));
+		game.getAssetManager().injectAssets(game.getScreen("game-end"));
 		game.getAssetManager().injectAssets(PlayerFactory.class);
 		game.getAssetManager().injectAssets(EnemyFactory.class);
+		game.getAssetManager().injectAssets(PropsFactory.class);
 
 		// Notify loaded screens
 		game.getScreen("mainMenu").finishLoading();
 		game.getScreen("game-intro").finishLoading();
 		game.getScreen("game").finishLoading();
+		game.getScreen("game-end").finishLoading();
 
 		game.pushScreen("mainMenu");
 	}

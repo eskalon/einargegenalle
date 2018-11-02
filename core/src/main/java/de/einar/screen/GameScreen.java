@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.google.common.eventbus.Subscribe;
 
 import de.einar.core.GameSession;
+import de.einar.events.GrannyContatcEvent;
 import de.einar.events.PlayerDeathEvent;
 import de.einar.events.PlayerWinEvent;
 import de.einar.input.GameInputProcessor;
@@ -29,6 +30,7 @@ public class GameScreen extends BaseScreen {
 
 		this.session = new GameSession(gameInputProcessor, game.getSpriteBatch(), game.getGameCamera(),
 				game.getDebugCamera(), game.getEventBus());
+		game.getEventBus().register(session);
 	}
 
 	@Override
@@ -47,18 +49,28 @@ public class GameScreen extends BaseScreen {
 
 	@Subscribe
 	public void onDeathEvent(PlayerDeathEvent ev) {
+		// TODO nach wenigen Sekunden wechseln auf Game Over Screen
 		System.out.println("Tod");
+		//game.pushScreen("mainMenu");
 	}
 
 	@Subscribe
 	public void onWinEvent(PlayerWinEvent ev) {
-		System.out.println("Gewonnen");
+		game.pushScreen("game-end");
+	}
+
+	@Subscribe
+	public void onDeathEvent(GrannyContatcEvent ev) {
+		// TODO Weiteren Stern anzeigen; Sirenen und Game Over bei > 3
+		if (ev.byPlayer)
+			System.out.println("Neuer Stern");
 	}
 
 	@Override
 	public void hide() {
 		super.hide();
 
+		game.getEventBus().unregister(session);
 		session.dispose();
 		session = null;
 	}

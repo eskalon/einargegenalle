@@ -1,4 +1,4 @@
-package de.einar.ecs.factory;
+package de.einar.ecs.factories;
 
 import com.artemis.Entity;
 import com.badlogic.gdx.graphics.Texture;
@@ -33,20 +33,22 @@ public class EnemyFactory {
 	}
 
 	private static void createEnemy(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			Texture text, short cat, short mask, int speed, int posX, int posY, CollisionListener collListener) {
+			Texture text, short cat, short mask, int speed, int posX, CollisionListener collListener) {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
 		CircleShape shape = new CircleShape();
-		shape.setRadius(PositionConverter.toPhysicUnits(Math.max(text.getWidth(), text.getHeight()) / 2));
+		shape.setRadius(PositionConverter.toPhysicUnits(Math.max(text.getWidth(), text.getHeight()) / 2 -5));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
 		fixtureDef.friction = 0f;
 		fixtureDef.filter.categoryBits = cat;
 		fixtureDef.filter.maskBits = mask;
+		fixtureDef.isSensor = true;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, posX, posY, null, e, fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, posX, 216, null, e, false,
+				fixtureDef);
 		body.setLinearVelocity(PositionConverter.toPhysicUnits(new Vector2(-GameSession.worldSpeed, 0)));
 
 		PhysicsComponent phyComp = new PhysicsComponent(body, collListener);
@@ -68,14 +70,14 @@ public class EnemyFactory {
 	}
 
 	public static void createCar(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			int posX, int posY, int speed, EventBus bus) {
-		createEnemy(ecsWorld, physicsWorld, carTexture, Category.CAR, Mask.CAR, speed, posX, posY,
+			int posX, int speed, EventBus bus) {
+		createEnemy(ecsWorld, physicsWorld, carTexture, Category.CAR, Mask.CAR, speed, posX,
 				new CarPhysicsListener(bus));
 	}
 
 	public static void createGrandma(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			int posX, int posY, int speed, EventBus bus) {
-		createEnemy(ecsWorld, physicsWorld, grannyTexture, Category.GRANNY, Mask.GRANNY, speed, posX, posY,
+			int posX, int speed, EventBus bus) {
+		createEnemy(ecsWorld, physicsWorld, grannyTexture, Category.GRANNY, Mask.GRANNY, speed, posX,
 				new GrannyPhysicsListener(bus));
 	}
 

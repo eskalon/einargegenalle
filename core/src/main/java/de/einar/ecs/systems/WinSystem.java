@@ -23,10 +23,6 @@ public class WinSystem extends IntervalSystem {
 
 	@Override
 	protected void processSystem() {
-		
-		System.out.println("--" + bounds.getLinearVelocity());
-		
-		System.out.println(PositionConverter.toPixels(bounds.getPosition()).x);
 		if (PositionConverter.toPixels(bounds.getPosition()).x < (-1280 * 31.99F))
 			bus.post(new PlayerWinEvent());
 	}

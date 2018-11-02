@@ -12,8 +12,8 @@ import de.damios.gamedev.misc.RandomUtils;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
 import de.einar.ecs.components.PhysicsComponent.Mask;
-import de.einar.ecs.factory.EnemyFactory;
-import de.einar.ecs.factory.PlayerFactory;
+import de.einar.ecs.factories.EnemyFactory;
+import de.einar.ecs.factories.PlayerFactory;
 import de.einar.util.PositionConverter;
 import de.einar.worldgeneration.ObstacleBlock;
 import de.einar.worldgeneration.ObstacleList;
@@ -42,7 +42,7 @@ public class WorldGenerator {
 		fixtureDef.filter.maskBits = Mask.BOUNDARY;
 
 		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.StaticBody, 1280 * 32, 100, null, null,
-				fixtureDef);
+				true, fixtureDef);
 		MassData floorMassData = new MassData();
 		floorMassData.mass = 10000;
 		body.setMassData(floorMassData);
@@ -58,7 +58,7 @@ public class WorldGenerator {
 		fixtureDef2.filter.maskBits = Mask.BOUNDARY;
 
 		Body body2 = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 20, 200,
-				new Vector2(-GameSession.worldSpeed, 0), null, fixtureDef2);
+				new Vector2(-GameSession.worldSpeed, 0), null, true, fixtureDef2);
 
 		// STUFF
 		ObstacleList list = new ObstacleList(40);
@@ -67,10 +67,10 @@ public class WorldGenerator {
 
 			if (posX < (1280 * 31.9F) && posX > 1300)
 				if (RandomUtils.getRandomNumber(1, 3) <= 2) {
-					EnemyFactory.createCar(ecsWorld, physicsWorld, posX, 200,
+					EnemyFactory.createCar(ecsWorld, physicsWorld, posX,
 							RandomUtils.getRandomNumber(GameSession.carSpeed - 5, GameSession.carSpeed), bus);
 				} else
-					EnemyFactory.createGrandma(ecsWorld, physicsWorld, posX, 200, GameSession.worldSpeed, bus);
+					EnemyFactory.createGrandma(ecsWorld, physicsWorld, posX, GameSession.worldSpeed, bus);
 		}
 
 		session.bounds = body2;

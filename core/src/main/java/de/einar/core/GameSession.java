@@ -8,8 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 
 import de.einar.collisions.GameContactListener;
+import de.einar.ecs.components.PhysicsComponent;
+import de.einar.ecs.factories.PropsFactory;
 import de.einar.ecs.systems.DebugPhysicsRenderSystem;
 import de.einar.ecs.systems.EnemyInitSystem;
 import de.einar.ecs.systems.EntityPhysicsHandlerSystem;
@@ -18,6 +21,8 @@ import de.einar.ecs.systems.PhysicsSystem;
 import de.einar.ecs.systems.RenderPositionUpdateSystem;
 import de.einar.ecs.systems.SpriteRenderSystem;
 import de.einar.ecs.systems.WinSystem;
+import de.einar.events.GrannyContatcEvent;
+import de.einar.events.PlayerDeathEvent;
 import de.einar.input.GameInputProcessor;
 import de.einar.util.PositionConverter;
 
@@ -35,6 +40,7 @@ public class GameSession {
 
 	private SpriteRenderSystem spriteRenderSystem;
 	private DebugPhysicsRenderSystem debugRenderSystem;
+	private PhysicsSystem physicsSystem;
 
 	/**
 	 * Creates a new game session.
@@ -55,17 +61,17 @@ public class GameSession {
 		spriteRenderSystem = new SpriteRenderSystem(gameCamera, batch);
 		debugRenderSystem = new DebugPhysicsRenderSystem(gameCamera, debugCamera, physicsWorld);
 		EnemyInitSystem initS = new EnemyInitSystem();
+		physicsSystem = new PhysicsSystem(physicsWorld);
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				/* Render */
 				.withPassive(1, spriteRenderSystem).withPassive(1, debugRenderSystem)
 				/* Physics */
-				.with(new EntityPhysicsHandlerSystem(physicsWorld)).with(new PhysicsSystem(physicsWorld))
+				.with(new EntityPhysicsHandlerSystem(physicsWorld)).with(physicsSystem)
 				.with(new RenderPositionUpdateSystem())
 				/* Win */
 				.with(winS)
 				/* Misc */
-				.with(new InputProcessingSystem(inputListener)).with(initS)
-				.build();
+				.with(new InputProcessingSystem(inputListener)).with(initS).build();
 		this.entityWorld = new com.artemis.World(config);
 
 		// Generate world
@@ -104,6 +110,18 @@ public class GameSession {
 	 */
 	public World getEntityWorld() {
 		return entityWorld;
+	}
+
+	@Subscribe
+	public void onDeathEvent(PlayerDeathEvent ev) {
+		physicsSystem.setEnabled(false);
+	}
+
+	@Subscribe
+	public void onGrannyContactEvent(GrannyContatcEvent ev) {
+		PhysicsComponent comp = ev.granny.getComponent(PhysicsComponent.class);
+		PropsFactory.createDeadGranny(entityWorld, physicsWorld, comp.getPos(), comp.getVel());
+		ev.granny.deleteFromWorld();
 	}
 
 }

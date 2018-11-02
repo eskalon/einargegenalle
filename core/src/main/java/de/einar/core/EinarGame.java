@@ -23,6 +23,7 @@ import de.damios.gamedev.log.Log;
 import de.damios.gamedev.misc.EventQueueBus;
 import de.einar.screen.BaseScreen;
 import de.einar.screen.BaseUIScreen;
+import de.einar.screen.GameEndScreen;
 import de.einar.screen.GameIntroScreen;
 import de.einar.screen.GameScreen;
 import de.einar.screen.MainMenuScreen;
@@ -115,6 +116,7 @@ public class EinarGame extends ScreenGame {
 		addScreen("mainMenu", new MainMenuScreen());
 		addScreen("game", new GameScreen());
 		addScreen("game-intro", new GameIntroScreen());
+		addScreen("game-end", new GameEndScreen());
 
 		pushScreen("splash");
 	}

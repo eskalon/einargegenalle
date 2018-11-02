@@ -1,4 +1,4 @@
-package de.einar.ecs.factory;
+package de.einar.ecs.factories;
 
 import com.artemis.Entity;
 import com.badlogic.gdx.graphics.Texture;
@@ -38,7 +38,7 @@ public class PlayerFactory {
 		fixtureDef.filter.categoryBits = Category.PLAYER;
 		fixtureDef.filter.maskBits = Mask.PLAYER;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 150, 200, null, e, fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 150, 200, null, e, true, fixtureDef);
 
 		PhysicsComponent phyComp = new PhysicsComponent(body);
 
