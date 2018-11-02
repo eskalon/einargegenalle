@@ -7,9 +7,9 @@ Das Spiel ist in Java geschrieben und verwendet als Engine das [libGDX](https://
 Für das Entity-Component-System setzen wir auf das bewährte [artemis-odb](https://github.com/junkdog/artemis-odb).
 
 ## Mitarbeit
-Eine Übersicht über alle bisherigen Contributor und die genutzten externen Assets gibt es in der [CONTRIBUTORS.md](https://github.com/einargegenalle/ProjektGG/blob/master/CONTRIBUTORS.md).
+Eine Übersicht über alle bisherigen Contributor und die genutzten externen Assets gibt es in der [CONTRIBUTORS.md](https://github.com/eskalon/einargegenalle/blob/master/CONTRIBUTORS.md).
 
 ## Wo kann ich mehr erfahren
-Weitere Informationen zum Spiel sind auch in unserem Spieleprofil (Link folgt!) auf Pewn zu finden.
+Weitere Informationen zum Spiel sind auch in unserem [Spieleprofil](https://pewn.de/games/1455055-Einar-gegen-alle/) auf Pewn zu finden.
 
-<a href="https://pewn.de/games/123-name/?vote=notify"><img src="https://pewn.de/signature/pewn3_general.png" alt="Unser Spiel auf Pewn"/></a>
+<a href="https://pewn.de/games/1455055-Einar-gegen-alle/?vote=notify"><img src="https://pewn.de/signature/pewn3_general.png" alt="Unser Spiel auf Pewn"/></a>
