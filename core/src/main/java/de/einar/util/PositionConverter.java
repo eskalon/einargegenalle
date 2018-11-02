@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class PositionConverter {
 
-	public static float PIX_TO_PHY_FACTOR = 50;
+	public static float PIX_TO_PHY_FACTOR = 150;
 
 	private PositionConverter() {
 		// not used

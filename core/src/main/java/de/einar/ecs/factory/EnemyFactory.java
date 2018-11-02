@@ -5,13 +5,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.google.common.eventbus.EventBus;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 import de.einar.collisions.CarPhysicsListener;
 import de.einar.collisions.CollisionListener;
+import de.einar.collisions.GrannyPhysicsListener;
 import de.einar.core.GameSession;
 import de.einar.ecs.components.EnemyComponent;
 import de.einar.ecs.components.PhysicsComponent;
@@ -22,9 +23,9 @@ import de.einar.util.PositionConverter;
 
 public class EnemyFactory {
 
-	@InjectAsset("textures/player.png")
+	@InjectAsset("textures/car.png")
 	private static Texture carTexture;
-	@InjectAsset("textures/player.png")
+	@InjectAsset("textures/granny.png")
 	private static Texture grannyTexture;
 
 	private EnemyFactory() {
@@ -36,9 +37,8 @@ public class EnemyFactory {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(PositionConverter.toPhysicUnits(text.getWidth() / 2),
-				PositionConverter.toPhysicUnits(text.getHeight() / 2));
+		CircleShape shape = new CircleShape();
+		shape.setRadius(PositionConverter.toPhysicUnits(Math.max(text.getWidth(), text.getHeight()) / 2));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
@@ -47,7 +47,7 @@ public class EnemyFactory {
 		fixtureDef.filter.maskBits = mask;
 
 		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, posX, posY, null, e, fixtureDef);
-		body.setLinearVelocity(PositionConverter.toPhysicUnits(new Vector2(GameSession.enemySpeed, 0)));
+		body.setLinearVelocity(PositionConverter.toPhysicUnits(new Vector2(-GameSession.worldSpeed, 0)));
 
 		PhysicsComponent phyComp = new PhysicsComponent(body, collListener);
 
@@ -58,7 +58,10 @@ public class EnemyFactory {
 
 		// ENEMY
 		EnemyComponent enemyComp = new EnemyComponent();
-		enemyComp.setSpeed(speed);
+		if (speed == GameSession.worldSpeed)
+			enemyComp.setStarted(true);
+		else
+			enemyComp.setSpeed(-speed);
 
 		// Add components
 		e.edit().add(phyComp).add(enemyComp).add(spriteComp);
@@ -68,6 +71,12 @@ public class EnemyFactory {
 			int posX, int posY, int speed, EventBus bus) {
 		createEnemy(ecsWorld, physicsWorld, carTexture, Category.CAR, Mask.CAR, speed, posX, posY,
 				new CarPhysicsListener(bus));
+	}
+
+	public static void createGrandma(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
+			int posX, int posY, int speed, EventBus bus) {
+		createEnemy(ecsWorld, physicsWorld, grannyTexture, Category.GRANNY, Mask.GRANNY, speed, posX, posY,
+				new GrannyPhysicsListener(bus));
 	}
 
 }

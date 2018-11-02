@@ -27,9 +27,9 @@ public class InputProcessingSystem extends IteratingSystem {
 	@Override
 	protected void process(int id) {
 		PhysicsComponent phy = physicsMapper.get(id);
-		
+
 		if (inputProcessor.isSpacePressed() && Math.abs(phy.getVel().y) < 0.000001) {
-			phy.applyImpulseToCenter(new Vector2(0, PositionConverter.toPhysicUnits(7000)));
+			phy.applyImpulseToCenter(new Vector2(0, PositionConverter.toPhysicUnits(720)));
 		}
 	}
 }

@@ -8,12 +8,15 @@ import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.google.common.eventbus.EventBus;
 
+import de.damios.gamedev.misc.RandomUtils;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
 import de.einar.ecs.components.PhysicsComponent.Mask;
 import de.einar.ecs.factory.EnemyFactory;
 import de.einar.ecs.factory.PlayerFactory;
 import de.einar.util.PositionConverter;
+import de.einar.worldgeneration.ObstacleBlock;
+import de.einar.worldgeneration.ObstacleList;
 
 public class WorldGenerator {
 
@@ -30,7 +33,7 @@ public class WorldGenerator {
 
 		// FLOOR
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(PositionConverter.toPhysicUnits(1280 * 6), PositionConverter.toPhysicUnits(50));
+		shape.setAsBox(PositionConverter.toPhysicUnits(1280 * 64), PositionConverter.toPhysicUnits(50));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
@@ -38,7 +41,7 @@ public class WorldGenerator {
 		fixtureDef.filter.categoryBits = Category.BOUNDARY;
 		fixtureDef.filter.maskBits = Mask.BOUNDARY;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.StaticBody, 1280 * 3, 100, null, null,
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.StaticBody, 1280 * 32, 100, null, null,
 				fixtureDef);
 		MassData floorMassData = new MassData();
 		floorMassData.mass = 10000;
@@ -55,10 +58,20 @@ public class WorldGenerator {
 		fixtureDef2.filter.maskBits = Mask.BOUNDARY;
 
 		Body body2 = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 20, 200,
-				new Vector2(GameSession.worldSpeed, 0), null, fixtureDef2);
+				new Vector2(-GameSession.worldSpeed, 0), null, fixtureDef2);
 
-		// ENEMY
-		EnemyFactory.createCar(ecsWorld, physicsWorld, 1600, 500, 50, bus);
+		// STUFF
+		ObstacleList list = new ObstacleList(40);
+		for (ObstacleBlock o : list.getObstacleList()) {
+			int posX = (int) o.getObstacle().getLeftBottom().x;
+
+			if (posX < (1280 * 31.9F) && posX > 1300)
+				if (RandomUtils.getRandomNumber(1, 3) <= 2) {
+					EnemyFactory.createCar(ecsWorld, physicsWorld, posX, 200,
+							RandomUtils.getRandomNumber(GameSession.carSpeed - 5, GameSession.carSpeed), bus);
+				} else
+					EnemyFactory.createGrandma(ecsWorld, physicsWorld, posX, 200, GameSession.worldSpeed, bus);
+		}
 
 		session.bounds = body2;
 	}

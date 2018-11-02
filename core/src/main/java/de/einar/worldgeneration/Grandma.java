@@ -1,4 +1,4 @@
-package de.einar.worldGeneration;
+package de.einar.worldgeneration;
 
 import com.badlogic.gdx.math.Vector2;
 

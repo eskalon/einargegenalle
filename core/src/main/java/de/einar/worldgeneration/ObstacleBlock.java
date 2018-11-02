@@ -1,4 +1,4 @@
-package de.einar.worldGeneration;
+package de.einar.worldgeneration;
 
 import com.badlogic.gdx.math.Vector2;
 
@@ -8,7 +8,7 @@ public class ObstacleBlock {
 	private Obstacle obstacle;
 	private float startX;
 	private float endX;
-	private int freespace = Obstacle.REFERENCE * 20;
+	private int freespace = Math.round(Obstacle.REFERENCE * 3.5F);
 
 	public ObstacleBlock(Obstacle obstacle) {
 		this.obstacle = obstacle;
@@ -33,7 +33,7 @@ public class ObstacleBlock {
 	public ObstacleBlock gerenateNextObstacleBlock() {
 		float safeDistance = this.obstacle.calculateSafeJumpDistance();
 		double random = Math.random();
-		double bikeLength = Obstacle.REFERENCE * 1.5;
+		double bikeLength = Obstacle.REFERENCE + 40;
 		float distance = (float) (bikeLength * 2 + random * this.freespace + safeDistance);
 		Vector2 newLeftBottom = new Vector2(this.endX + distance, this.obstacle.leftBottom.y);
 		ObstacleBlock next = new ObstacleBlock(new Grandma(newLeftBottom));

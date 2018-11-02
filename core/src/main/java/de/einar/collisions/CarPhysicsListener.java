@@ -15,7 +15,7 @@ public class CarPhysicsListener implements CollisionListener {
 	}
 
 	@Override
-	public void beginContact(Contact contact, Entity car, Entity target) {
+	public void beginContact(Contact contact, Entity car, Entity player) {
 		bus.post(new PlayerDeathEvent());
 	}
 

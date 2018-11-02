@@ -11,6 +11,7 @@ import com.google.common.eventbus.EventBus;
 
 import de.einar.collisions.GameContactListener;
 import de.einar.ecs.systems.DebugPhysicsRenderSystem;
+import de.einar.ecs.systems.EnemyInitSystem;
 import de.einar.ecs.systems.EntityPhysicsHandlerSystem;
 import de.einar.ecs.systems.InputProcessingSystem;
 import de.einar.ecs.systems.PhysicsSystem;
@@ -24,8 +25,9 @@ import de.einar.util.PositionConverter;
  * This class handles all the basic game stuff.
  */
 public class GameSession {
-	public static int worldSpeed = -350;
-	public static int enemySpeed = -500;
+	public static int backgroundSpeed = 160;
+	public static int worldSpeed = 405;
+	public static int carSpeed = 510;
 	public Body bounds;
 
 	private com.artemis.World entityWorld;
@@ -45,13 +47,14 @@ public class GameSession {
 
 		// PHYSICS
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(
-				PositionConverter.toPhysicUnits(new Vector2(0, -1950F)), true);
+				PositionConverter.toPhysicUnits(new Vector2(0, -2000F)), true);
 		this.physicsWorld.setAutoClearForces(false);
 		this.physicsWorld.setContactListener(new GameContactListener());
 
 		// ECS
 		spriteRenderSystem = new SpriteRenderSystem(gameCamera, batch);
 		debugRenderSystem = new DebugPhysicsRenderSystem(gameCamera, debugCamera, physicsWorld);
+		EnemyInitSystem initS = new EnemyInitSystem();
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				/* Render */
 				.withPassive(1, spriteRenderSystem).withPassive(1, debugRenderSystem)
@@ -61,7 +64,8 @@ public class GameSession {
 				/* Win */
 				.with(winS)
 				/* Misc */
-				.with(new InputProcessingSystem(inputListener)).build();
+				.with(new InputProcessingSystem(inputListener)).with(initS)
+				.build();
 		this.entityWorld = new com.artemis.World(config);
 
 		// Generate world
@@ -69,6 +73,7 @@ public class GameSession {
 		gen.generate(this, entityWorld, physicsWorld, bus);
 
 		winS.setBounds(bounds);
+		initS.bounds = bounds;
 	}
 
 	/**

@@ -38,7 +38,7 @@ public class PlayerFactory {
 		fixtureDef.filter.categoryBits = Category.PLAYER;
 		fixtureDef.filter.maskBits = Mask.PLAYER;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 175, 200, null, e, fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 150, 200, null, e, fixtureDef);
 
 		PhysicsComponent phyComp = new PhysicsComponent(body);
 

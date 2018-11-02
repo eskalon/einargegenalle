@@ -47,12 +47,12 @@ public class GameScreen extends BaseScreen {
 
 	@Subscribe
 	public void onDeathEvent(PlayerDeathEvent ev) {
-
+		System.out.println("Tod");
 	}
 
 	@Subscribe
 	public void onWinEvent(PlayerWinEvent ev) {
-
+		System.out.println("Gewonnen");
 	}
 
 	@Override
