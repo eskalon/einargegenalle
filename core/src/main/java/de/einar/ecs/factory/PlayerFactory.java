@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 import de.einar.ecs.components.PhysicsComponent;
+import de.einar.ecs.components.PhysicsComponent.Category;
+import de.einar.ecs.components.PhysicsComponent.Mask;
 import de.einar.ecs.components.PlayerComponent;
 import de.einar.ecs.components.SpriteComponent;
 import de.einar.util.PositionConverter;
@@ -34,7 +36,8 @@ public class PlayerFactory {
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
 		fixtureDef.friction = 0f;
-		//fixtureDef.restitution = 1.1F;
+		fixtureDef.filter.categoryBits = Category.PLAYER;
+		fixtureDef.filter.maskBits = Mask.PLAYER;
 
 		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 50, 200, new Vector2(145, 0), e,
 				fixtureDef);

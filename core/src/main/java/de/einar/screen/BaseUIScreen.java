@@ -84,7 +84,7 @@ public abstract class BaseUIScreen extends BaseScreen {
 		stage.addActor(mainTable);
 		mainTable.setFillParent(true);
 
-		mainTable.setDebug(game.showDebugStuff());
+		// mainTable.setDebug(game.showDebugStuff());
 
 		initUI();
 

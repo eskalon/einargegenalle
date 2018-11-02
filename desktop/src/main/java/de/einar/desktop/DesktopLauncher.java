@@ -17,18 +17,17 @@ public class DesktopLauncher {
 		config.height = 720;
 		config.width = 1280;
 		config.resizable = false;
+		config.foregroundFPS = 120;
 		config.addIcon("icons/icon16.png", Files.FileType.Absolute);
 		config.addIcon("icons/icon32.png", Files.FileType.Absolute);
 		config.addIcon("icons/icon48.png", Files.FileType.Absolute);
 
 		try {
 			// Start the game
-			new LwjglApplication(new EinarGame(args != null && args.length > 0
-					&& "--debug".equalsIgnoreCase(args[0])), config);
+			new LwjglApplication(new EinarGame(args != null && args.length > 0 && "--debug".equalsIgnoreCase(args[0])),
+					config);
 		} catch (Exception e) {
-			exitWithError(String.format(
-					"Beim Starten des Spiels ist ein unerwarteter Fehler aufgetreten: %s",
-					e));
+			exitWithError(String.format("Beim Starten des Spiels ist ein unerwarteter Fehler aufgetreten: %s", e));
 		}
 	}
 

@@ -7,6 +7,8 @@ import com.badlogic.gdx.physics.box2d.MassData;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import de.einar.ecs.components.PhysicsComponent;
+import de.einar.ecs.components.PhysicsComponent.Category;
+import de.einar.ecs.components.PhysicsComponent.Mask;
 import de.einar.ecs.factory.PlayerFactory;
 import de.einar.util.PositionConverter;
 
@@ -26,6 +28,8 @@ public class WorldGenerator {
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
 		fixtureDef.friction = 0;
+		fixtureDef.filter.categoryBits = Category.BOUNDARY;
+		fixtureDef.filter.maskBits = Mask.BOUNDARY;
 
 		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.StaticBody, 1280 * 3, 100, null, null,
 				fixtureDef);

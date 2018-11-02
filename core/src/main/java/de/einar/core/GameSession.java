@@ -6,6 +6,7 @@ import com.artemis.WorldConfigurationBuilder;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.google.common.eventbus.EventBus;
 
 import de.einar.collisions.GameContactListener;
 import de.einar.ecs.systems.CameraMovementSystem;
@@ -34,7 +35,7 @@ public class GameSession {
 	 * @param inputListener
 	 */
 	public GameSession(GameInputProcessor inputListener, SpriteBatch batch, OrthographicCamera gameCamera,
-			OrthographicCamera debugCamera) {
+			OrthographicCamera debugCamera, EventBus bus) {
 		// PHYSICS
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(
 				PositionConverter.toPhysicUnits(new Vector2(0, -450F)), true);
@@ -47,7 +48,7 @@ public class GameSession {
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				/* Render */
 				.withPassive(1, spriteRenderSystem).withPassive(1, debugRenderSystem)
-				.with(new CameraMovementSystem(gameCamera))
+				.with(new CameraMovementSystem(bus, gameCamera))
 				/* Physics */
 				.with(new EntityPhysicsHandlerSystem(physicsWorld)).with(new PhysicsSystem(physicsWorld))
 				.with(new RenderPositionUpdateSystem())

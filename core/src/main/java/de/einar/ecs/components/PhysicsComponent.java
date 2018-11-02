@@ -30,8 +30,8 @@ public class PhysicsComponent extends Component {
 		this.collisionListener = collisionListener;
 	}
 
-	public static Body createBody(World physicsWorld, BodyType bt, int posX,
-			int posY, Vector2 velocity, Entity e, FixtureDef... defs) {
+	public static Body createBody(World physicsWorld, BodyType bt, int posX, int posY, Vector2 velocity, Entity e,
+			FixtureDef... defs) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = bt;
 		bodyDef.position.set(PositionConverter.toPhysicUnits(posX), PositionConverter.toPhysicUnits(posY));
@@ -69,7 +69,7 @@ public class PhysicsComponent extends Component {
 	public void setVel(Vector2 dir, float scalar) {
 		body.setLinearVelocity(dir.nor().scl(scalar));
 	}
-	
+
 	public void setVel(Vector2 vel) {
 		body.setLinearVelocity(vel);
 	}
@@ -107,7 +107,7 @@ public class PhysicsComponent extends Component {
 	public Vector2 getVel() {
 		return body.getLinearVelocity().cpy();
 	}
-	
+
 	public Vector2 getRealVel() {
 		return body.getLinearVelocity();
 	}
@@ -118,14 +118,18 @@ public class PhysicsComponent extends Component {
 
 	public static class Category {
 		public static final short BOUNDARY = 1;
+		public static final short PLAYER = 2;
+		public static final short CAR = 4;
+		public static final short GRANNY = 8;
+		public static final short POERWRUP = 16;
 	}
 
 	public static class Mask {
 		public static final short BOUNDARY = (short) 0xFFFF;
-		/*
-		 * public static final short PLAYER = Category.BOUNDARY |
-		 * Category.PLAYER | Category.BAG | Category.ENEMY | Category.BULLET;
-		 */
+		public static final short PLAYER = Category.BOUNDARY | Category.CAR | Category.GRANNY | Category.POERWRUP;
+		public static final short CAR = Category.BOUNDARY;
+		public static final short GRANNY = Category.BOUNDARY;
+		public static final short POERWRUP = Category.BOUNDARY | Category.PLAYER;
 	}
 
 }
