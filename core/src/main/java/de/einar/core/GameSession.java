@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
 import de.einar.collisions.GameContactListener;
+import de.einar.ecs.systems.CameraMovementSystem;
 import de.einar.ecs.systems.DebugPhysicsRenderSystem;
 import de.einar.ecs.systems.EntityPhysicsHandlerSystem;
 import de.einar.ecs.systems.InputProcessingSystem;
@@ -15,6 +16,7 @@ import de.einar.ecs.systems.PhysicsSystem;
 import de.einar.ecs.systems.RenderPositionUpdateSystem;
 import de.einar.ecs.systems.SpriteRenderSystem;
 import de.einar.input.GameInputProcessor;
+import de.einar.util.PositionConverter;
 
 /**
  * This class handles all the basic game stuff.
@@ -31,18 +33,21 @@ public class GameSession {
 	 * 
 	 * @param inputListener
 	 */
-	public GameSession(GameInputProcessor inputListener, SpriteBatch batch, OrthographicCamera camera) {
+	public GameSession(GameInputProcessor inputListener, SpriteBatch batch, OrthographicCamera gameCamera,
+			OrthographicCamera debugCamera) {
 		// PHYSICS
-		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(new Vector2(0, -98.1F), true);
+		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(
+				PositionConverter.toPhysicUnits(new Vector2(0, -450F)), true);
 		this.physicsWorld.setAutoClearForces(false);
 		this.physicsWorld.setContactListener(new GameContactListener());
 
 		// ECS
-		spriteRenderSystem = new SpriteRenderSystem(batch);
-		debugRenderSystem = new DebugPhysicsRenderSystem(camera, batch, physicsWorld);
+		spriteRenderSystem = new SpriteRenderSystem(gameCamera, batch);
+		debugRenderSystem = new DebugPhysicsRenderSystem(gameCamera, debugCamera, physicsWorld);
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				/* Render */
 				.withPassive(1, spriteRenderSystem).withPassive(1, debugRenderSystem)
+				.with(new CameraMovementSystem(gameCamera))
 				/* Physics */
 				.with(new EntityPhysicsHandlerSystem(physicsWorld)).with(new PhysicsSystem(physicsWorld))
 				.with(new RenderPositionUpdateSystem())

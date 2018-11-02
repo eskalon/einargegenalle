@@ -8,6 +8,7 @@ import java.util.List;
 import com.artemis.Aspect;
 import com.artemis.Entity;
 import com.artemis.EntitySystem;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import de.einar.ecs.components.SpriteComponent;
@@ -18,13 +19,15 @@ import de.einar.ecs.components.SpriteComponent;
  */
 public class SpriteRenderSystem extends EntitySystem {
 
+	private OrthographicCamera gameCamera;
 	private List<SpriteComponent> sortedSprites;
 	private SpriteBatch batch;
 
-	public SpriteRenderSystem(SpriteBatch batch) {
+	public SpriteRenderSystem(OrthographicCamera gameCamera, SpriteBatch batch) {
 		super(Aspect.all(SpriteComponent.class));
 
 		this.batch = batch;
+		this.gameCamera = gameCamera;
 	}
 
 	@Override
@@ -39,8 +42,7 @@ public class SpriteRenderSystem extends EntitySystem {
 
 	protected void renderSpriteComponent(SpriteComponent sprite) {
 		if (sprite.isVisible())
-			batch.draw(sprite.getTexture(),
-					sprite.getPosX() + sprite.getPaddingLeft(),
+			batch.draw(sprite.getTexture(), sprite.getPosX() + sprite.getPaddingLeft(),
 					sprite.getPosY() + sprite.getPaddingBottom());
 	}
 
@@ -67,6 +69,9 @@ public class SpriteRenderSystem extends EntitySystem {
 
 	@Override
 	protected void processSystem() {
+		gameCamera.update();
+		
+		batch.setProjectionMatrix(gameCamera.combined);
 		batch.begin();
 		for (int i = 0; sortedSprites.size() > i; i++) {
 			renderSpriteComponent(sortedSprites.get(i));

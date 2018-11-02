@@ -42,6 +42,7 @@ public class EinarGame extends ScreenGame {
 
 	private OrthographicCamera uiCamera;
 	private OrthographicCamera gameCamera;
+	private OrthographicCamera debugCamera;
 
 	private GameSettings settings;
 
@@ -93,6 +94,9 @@ public class EinarGame extends ScreenGame {
 		this.gameCamera.translate(viewportWidth / 2, viewportHeight / 2, 0);
 		// this.camera.update();
 		this.batch.setProjectionMatrix(this.gameCamera.combined);
+
+		this.debugCamera = new OrthographicCamera(viewportWidth, viewportHeight);
+		this.debugCamera.translate(viewportWidth / 2, viewportHeight / 2, 0);
 
 		// Load game settings
 		this.settings = new GameSettings(NAME.trim().replace(" ", "-").toLowerCase());
@@ -150,6 +154,10 @@ public class EinarGame extends ScreenGame {
 	 */
 	public Camera getUICamera() {
 		return this.uiCamera;
+	}
+
+	public OrthographicCamera getDebugCamera() {
+		return debugCamera;
 	}
 
 	/**

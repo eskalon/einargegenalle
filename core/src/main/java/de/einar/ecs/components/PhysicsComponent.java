@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.World;
 
 import de.einar.collisions.CollisionListener;
+import de.einar.util.PositionConverter;
 
 public class PhysicsComponent extends Component {
 
@@ -29,11 +30,11 @@ public class PhysicsComponent extends Component {
 		this.collisionListener = collisionListener;
 	}
 
-	public static Body createBody(World physicsWorld, BodyType bt, float posX,
-			float posY, Vector2 velocity, Entity e, FixtureDef... defs) {
+	public static Body createBody(World physicsWorld, BodyType bt, int posX,
+			int posY, Vector2 velocity, Entity e, FixtureDef... defs) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = bt;
-		bodyDef.position.set(posX, posY);
+		bodyDef.position.set(PositionConverter.toPhysicUnits(posX), PositionConverter.toPhysicUnits(posY));
 		Body body = physicsWorld.createBody(bodyDef);
 		body.setUserData(e);
 
@@ -42,7 +43,7 @@ public class PhysicsComponent extends Component {
 		}
 
 		if (velocity != null)
-			body.setLinearVelocity(velocity);
+			body.setLinearVelocity(PositionConverter.toPhysicUnits(velocity));
 
 		body.setFixedRotation(true);
 
@@ -67,6 +68,10 @@ public class PhysicsComponent extends Component {
 	 */
 	public void setVel(Vector2 dir, float scalar) {
 		body.setLinearVelocity(dir.nor().scl(scalar));
+	}
+	
+	public void setVel(Vector2 vel) {
+		body.setLinearVelocity(vel);
 	}
 
 	/**
@@ -101,6 +106,10 @@ public class PhysicsComponent extends Component {
 	 */
 	public Vector2 getVel() {
 		return body.getLinearVelocity().cpy();
+	}
+	
+	public Vector2 getRealVel() {
+		return body.getLinearVelocity();
 	}
 
 	public Body getBody() {

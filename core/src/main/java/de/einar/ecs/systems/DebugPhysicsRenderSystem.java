@@ -3,8 +3,6 @@ package de.einar.ecs.systems;
 import com.artemis.Aspect;
 import com.artemis.BaseEntitySystem;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -16,14 +14,14 @@ import de.einar.util.PositionConverter;
 public class DebugPhysicsRenderSystem extends BaseEntitySystem {
 
 	private World physicsWorld;
-	private SpriteBatch batch;
 	private Box2DDebugRenderer debugRenderer;
-	private Matrix4 debugMatrix;
+	private OrthographicCamera gameCamera;
+	private OrthographicCamera debugCamera;
 
-	public DebugPhysicsRenderSystem(OrthographicCamera camera, SpriteBatch batch, World physicsWorld) {
+	public DebugPhysicsRenderSystem(OrthographicCamera gameCamera, OrthographicCamera debugCamera, World physicsWorld) {
 		super(Aspect.exclude());
-		this.debugMatrix = new Matrix4(camera.combined.scl(PositionConverter.toPixels(1)));
-		this.batch = batch;
+		this.gameCamera = gameCamera;
+		this.debugCamera = debugCamera;
 		this.physicsWorld = physicsWorld;
 		this.debugRenderer = new Box2DDebugRenderer();
 	}
@@ -35,9 +33,10 @@ public class DebugPhysicsRenderSystem extends BaseEntitySystem {
 
 	@Override
 	protected void processSystem() {
-		batch.begin();
-		debugRenderer.render(physicsWorld, debugMatrix);
-		batch.end();
+		debugCamera.position.set(gameCamera.position);
+		debugCamera.update();
+
+		debugRenderer.render(physicsWorld, debugCamera.combined.scl(PositionConverter.PIX_TO_PHY_FACTOR));
 	}
 
 }
