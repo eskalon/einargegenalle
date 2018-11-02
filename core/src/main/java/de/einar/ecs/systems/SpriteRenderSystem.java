@@ -67,9 +67,11 @@ public class SpriteRenderSystem extends EntitySystem {
 
 	@Override
 	protected void processSystem() {
+		batch.begin();
 		for (int i = 0; sortedSprites.size() > i; i++) {
 			renderSpriteComponent(sortedSprites.get(i));
 		}
+		batch.end();
 	}
 
 }

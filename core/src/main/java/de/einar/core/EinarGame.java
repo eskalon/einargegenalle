@@ -7,7 +7,6 @@ import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -42,7 +41,7 @@ public class EinarGame extends ScreenGame {
 	private SpriteBatch batch;
 
 	private OrthographicCamera uiCamera;
-	private PerspectiveCamera gameCamera;
+	private OrthographicCamera gameCamera;
 
 	private GameSettings settings;
 
@@ -78,12 +77,9 @@ public class EinarGame extends ScreenGame {
 
 		// Initialize asset manager
 		FileHandleResolver resolver = new InternalFileHandleResolver();
-		this.assetManager.setLoader(FreeTypeFontGenerator.class,
-				new FreeTypeFontGeneratorLoader(resolver));
-		this.assetManager.setLoader(BitmapFont.class, ".ttf",
-				new FreetypeFontLoader(resolver));
-		this.assetManager.setLoader(JSON.class,
-				new JSONLoader(new InternalFileHandleResolver()));
+		this.assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+		this.assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+		this.assetManager.setLoader(JSON.class, new JSONLoader(new InternalFileHandleResolver()));
 
 		this.viewportWidth = Gdx.graphics.getWidth();
 		this.viewportHeight = Gdx.graphics.getHeight();
@@ -93,15 +89,13 @@ public class EinarGame extends ScreenGame {
 		this.uiCamera.translate(viewportWidth / 2, viewportHeight / 2, 0);
 		this.uiCamera.update();
 
-		this.gameCamera = new PerspectiveCamera(67, viewportWidth,
-				viewportHeight);
+		this.gameCamera = new OrthographicCamera(viewportWidth, viewportHeight);
 		this.gameCamera.translate(viewportWidth / 2, viewportHeight / 2, 0);
 		// this.camera.update();
 		this.batch.setProjectionMatrix(this.gameCamera.combined);
 
 		// Load game settings
-		this.settings = new GameSettings(
-				NAME.trim().replace(" ", "-").toLowerCase());
+		this.settings = new GameSettings(NAME.trim().replace(" ", "-").toLowerCase());
 
 		// Create the input multiplexer
 		this.inputProcessor = new BasicInputMultiplexer();
@@ -146,7 +140,7 @@ public class EinarGame extends ScreenGame {
 	/**
 	 * @return the camera used in the actual game.
 	 */
-	public Camera getGameCamera() {
+	public OrthographicCamera getGameCamera() {
 		return this.gameCamera;
 	}
 
@@ -166,8 +160,8 @@ public class EinarGame extends ScreenGame {
 	}
 
 	/**
-	 * @return the events bus. See {@link EventQueueBus}. Events are processed
-	 *         in the rendering thread.
+	 * @return the events bus. See {@link EventQueueBus}. Events are processed in
+	 *         the rendering thread.
 	 */
 	public EventQueueBus getEventBus() {
 		return eventBus;

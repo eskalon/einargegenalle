@@ -24,14 +24,12 @@ public class GameScreen extends BaseScreen {
 	public void show() {
 		super.show();
 
-		this.session = new GameSession(gameInputProcessor,
-				game.getSpriteBatch());
+		this.session = new GameSession(gameInputProcessor, game.getSpriteBatch(), game.getGameCamera());
 	}
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g,
-				backgroundColor.b, backgroundColor.a);
+		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		session.render(delta);
