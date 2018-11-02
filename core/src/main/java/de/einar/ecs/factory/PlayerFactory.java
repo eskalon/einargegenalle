@@ -2,7 +2,6 @@ package de.einar.ecs.factory;
 
 import com.artemis.Entity;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -25,7 +24,7 @@ public class PlayerFactory {
 		// not used
 	}
 
-	public static void createPlayer(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld) {
+	public static Entity createPlayer(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld) {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
@@ -39,8 +38,7 @@ public class PlayerFactory {
 		fixtureDef.filter.categoryBits = Category.PLAYER;
 		fixtureDef.filter.maskBits = Mask.PLAYER;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 50, 200, new Vector2(145, 0), e,
-				fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 175, 200, null, e, fixtureDef);
 
 		PhysicsComponent phyComp = new PhysicsComponent(body);
 
@@ -54,6 +52,8 @@ public class PlayerFactory {
 
 		// Add components
 		e.edit().add(phyComp).add(playerComp).add(spriteComp);
+
+		return e;
 	}
 
 }

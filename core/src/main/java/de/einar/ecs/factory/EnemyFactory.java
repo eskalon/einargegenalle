@@ -2,6 +2,7 @@ package de.einar.ecs.factory;
 
 import com.artemis.Entity;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -11,6 +12,7 @@ import com.google.common.eventbus.EventBus;
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 import de.einar.collisions.CarPhysicsListener;
 import de.einar.collisions.CollisionListener;
+import de.einar.core.GameSession;
 import de.einar.ecs.components.EnemyComponent;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
@@ -44,7 +46,8 @@ public class EnemyFactory {
 		fixtureDef.filter.categoryBits = cat;
 		fixtureDef.filter.maskBits = mask;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 50, 200, null, e, fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, posX, posY, null, e, fixtureDef);
+		body.setLinearVelocity(PositionConverter.toPhysicUnits(new Vector2(GameSession.worldSpeed, 0)));
 
 		PhysicsComponent phyComp = new PhysicsComponent(body, collListener);
 

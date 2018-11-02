@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.kotcrab.vis.ui.VisUI;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
+import de.einar.ecs.factory.EnemyFactory;
 import de.einar.ecs.factory.PlayerFactory;
 
 /**
@@ -29,6 +30,7 @@ public class SplashScreen extends BaseScreen {
 		game.getAssetManager().load(GameIntroScreen.class);
 		game.getAssetManager().load(GameScreen.class);
 		game.getAssetManager().load(PlayerFactory.class);
+		game.getAssetManager().load(EnemyFactory.class);
 	}
 
 	@Override
@@ -61,6 +63,7 @@ public class SplashScreen extends BaseScreen {
 		game.getAssetManager().injectAssets(game.getScreen("game-intro"));
 		game.getAssetManager().injectAssets(game.getScreen("game"));
 		game.getAssetManager().injectAssets(PlayerFactory.class);
+		game.getAssetManager().injectAssets(EnemyFactory.class);
 
 		// Notify loaded screens
 		game.getScreen("mainMenu").finishLoading();
