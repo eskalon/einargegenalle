@@ -24,8 +24,8 @@ import de.einar.util.PositionConverter;
  * This class handles all the basic game stuff.
  */
 public class GameSession {
-	public static int worldSpeed = -200;
-	public static int enemySpeed = -250;
+	public static int worldSpeed = -350;
+	public static int enemySpeed = -500;
 	public Body bounds;
 
 	private com.artemis.World entityWorld;
@@ -45,7 +45,7 @@ public class GameSession {
 
 		// PHYSICS
 		this.physicsWorld = new com.badlogic.gdx.physics.box2d.World(
-				PositionConverter.toPhysicUnits(new Vector2(0, -610F)), true);
+				PositionConverter.toPhysicUnits(new Vector2(0, -1950F)), true);
 		this.physicsWorld.setAutoClearForces(false);
 		this.physicsWorld.setContactListener(new GameContactListener());
 

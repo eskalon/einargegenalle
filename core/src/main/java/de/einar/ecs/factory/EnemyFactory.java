@@ -47,7 +47,7 @@ public class EnemyFactory {
 		fixtureDef.filter.maskBits = mask;
 
 		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, posX, posY, null, e, fixtureDef);
-		body.setLinearVelocity(PositionConverter.toPhysicUnits(new Vector2(GameSession.worldSpeed, 0)));
+		body.setLinearVelocity(PositionConverter.toPhysicUnits(new Vector2(GameSession.enemySpeed, 0)));
 
 		PhysicsComponent phyComp = new PhysicsComponent(body, collListener);
 
