@@ -30,7 +30,9 @@ public class SplashScreen extends BaseScreen {
 		game.getAssetManager().load(MainMenuScreen.class);
 		game.getAssetManager().load(GameIntroScreen.class);
 		game.getAssetManager().load(GameScreen.class);
-		game.getAssetManager().load(GameEndScreen.class);
+		game.getAssetManager().load(GameWinScreen.class);
+		game.getAssetManager().load(GameDeathScreen.class);
+		game.getAssetManager().load(GamePoliceEndScreen.class);
 		game.getAssetManager().load(PlayerFactory.class);
 		game.getAssetManager().load(EnemyFactory.class);
 		game.getAssetManager().load(PropsFactory.class);
@@ -65,7 +67,9 @@ public class SplashScreen extends BaseScreen {
 		game.getAssetManager().injectAssets(game.getScreen("mainMenu"));
 		game.getAssetManager().injectAssets(game.getScreen("game-intro"));
 		game.getAssetManager().injectAssets(game.getScreen("game"));
-		game.getAssetManager().injectAssets(game.getScreen("game-end"));
+		game.getAssetManager().injectAssets(game.getScreen("game-win"));
+		game.getAssetManager().injectAssets(game.getScreen("game-death"));
+		game.getAssetManager().injectAssets(game.getScreen("game-police-end"));
 		game.getAssetManager().injectAssets(PlayerFactory.class);
 		game.getAssetManager().injectAssets(EnemyFactory.class);
 		game.getAssetManager().injectAssets(PropsFactory.class);
@@ -74,7 +78,9 @@ public class SplashScreen extends BaseScreen {
 		game.getScreen("mainMenu").finishLoading();
 		game.getScreen("game-intro").finishLoading();
 		game.getScreen("game").finishLoading();
-		game.getScreen("game-end").finishLoading();
+		game.getScreen("game-win").finishLoading();
+		game.getScreen("game-death").finishLoading();
+		game.getScreen("game-police-end").finishLoading();
 
 		game.pushScreen("mainMenu");
 	}

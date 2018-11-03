@@ -12,7 +12,8 @@ import de.einar.ecs.components.PhysicsComponent;
 import de.einar.util.PositionConverter;
 
 /**
- * Takes care of processing the player input.
+ * Makes the cars move at their real speed as soon as they are seen by the
+ * player.
  */
 public class EnemyInitSystem extends IteratingSystem {
 
@@ -34,7 +35,7 @@ public class EnemyInitSystem extends IteratingSystem {
 
 		EnemyComponent ene = enemyMapper.get(id);
 
-		if (!ene.isStarted() && posEnemyX < ((-PositionConverter.toPixels(bounds.getPosition()).x)) + 500) {
+		if (!ene.isStarted() && posEnemyX < 1250) {
 			ene.setStarted(true);
 			phy.setVel(PositionConverter.toPhysicUnits(new Vector2(ene.getSpeed(), 0)));
 		}

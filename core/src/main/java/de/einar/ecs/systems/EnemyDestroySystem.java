@@ -10,7 +10,7 @@ import de.einar.ecs.components.PhysicsComponent;
 import de.einar.util.PositionConverter;
 
 /**
- * Takes care of processing the player input.
+ * Removes enemies outside of the playable area.
  */
 public class EnemyDestroySystem extends IteratingSystem {
 
@@ -28,7 +28,7 @@ public class EnemyDestroySystem extends IteratingSystem {
 		PhysicsComponent phy = physicsMapper.get(id);
 		int posEnemyX = PositionConverter.toPixels(phy.getPos().x);
 
-		if (posEnemyX < ((-PositionConverter.toPixels(bounds.getPosition()).x)) - 500) {
+		if (posEnemyX < -500) {
 			world.delete(id);
 		}
 	}

@@ -10,7 +10,7 @@ import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 /**
  * This screen represents the main menu.
  */
-public class GameEndScreen extends BaseUIScreen {
+public class GameWinScreen extends BaseUIScreen {
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
 
@@ -21,7 +21,7 @@ public class GameEndScreen extends BaseUIScreen {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				clickSound.play(1F);
-				game.pushScreen("menu");
+				game.pushScreen("mainMenu");
 				return true;
 			}
 		});

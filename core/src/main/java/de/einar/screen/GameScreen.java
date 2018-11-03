@@ -2,6 +2,7 @@ package de.einar.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.utils.Timer;
 import com.google.common.eventbus.Subscribe;
 
 import de.einar.core.GameSession;
@@ -15,6 +16,7 @@ import de.einar.input.GameInputProcessor;
  */
 public class GameScreen extends BaseScreen {
 
+	private int stars;
 	private GameSession session;
 	private GameInputProcessor gameInputProcessor;
 
@@ -49,9 +51,14 @@ public class GameScreen extends BaseScreen {
 
 	@Subscribe
 	public void onDeathEvent(PlayerDeathEvent ev) {
-		// TODO nach wenigen Sekunden wechseln auf Game Over Screen
 		System.out.println("Tod");
-		//game.pushScreen("mainMenu");
+
+		Timer.instance().scheduleTask(new Timer.Task() {
+			@Override
+			public void run() {
+				game.pushScreen("game-death");
+			}
+		}, 1.5F);
 	}
 
 	@Subscribe
@@ -61,9 +68,12 @@ public class GameScreen extends BaseScreen {
 
 	@Subscribe
 	public void onDeathEvent(GrannyContatcEvent ev) {
-		// TODO Weiteren Stern anzeigen; Sirenen und Game Over bei > 3
+		// TODO Sterne anzeigen
 		if (ev.byPlayer)
-			System.out.println("Neuer Stern");
+			stars++;
+
+		if (stars > 3)
+			game.pushScreen("game-police-end");
 	}
 
 	@Override

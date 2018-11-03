@@ -22,6 +22,6 @@ public class Obstacle {
 	}
 
 	public int calculateSafeJumpDistance() {
-		return Math.round(Obstacle.REFERENCE * 2.6F);
+		return Math.round(Obstacle.REFERENCE * 1.8F);
 	}
 }

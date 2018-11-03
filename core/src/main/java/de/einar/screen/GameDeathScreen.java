@@ -8,20 +8,22 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 
 /**
- * This screen represents the story intro of the game.
+ * This screen represents the death screen.
  */
-public class GameIntroScreen extends BaseUIScreen {
+public class GameDeathScreen extends BaseUIScreen {
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
 
+	// TODO todes bild
+
 	@Override
 	protected void initUI() {
-		ImageTextButton testButton = new ImageTextButton("Akku laden", skin);
+		ImageTextButton testButton = new ImageTextButton("Beenden", skin);
 		testButton.addListener(new InputListener() {
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
 				clickSound.play(1F);
-				game.pushScreen("game");
+				game.pushScreen("mainMenu");
 				return true;
 			}
 		});

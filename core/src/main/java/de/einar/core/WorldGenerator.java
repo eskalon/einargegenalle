@@ -41,8 +41,8 @@ public class WorldGenerator {
 		fixtureDef.filter.categoryBits = Category.BOUNDARY;
 		fixtureDef.filter.maskBits = Mask.BOUNDARY;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.StaticBody, 1280 * 32, 100, null, null,
-				true, fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.StaticBody, 1280 * 32, 100, null, null, true,
+				fixtureDef);
 		MassData floorMassData = new MassData();
 		floorMassData.mass = 10000;
 		body.setMassData(floorMassData);
@@ -61,14 +61,14 @@ public class WorldGenerator {
 				new Vector2(-GameSession.worldSpeed, 0), null, true, fixtureDef2);
 
 		// STUFF
-		ObstacleList list = new ObstacleList(40);
+		ObstacleList list = new ObstacleList(55);
 		for (ObstacleBlock o : list.getObstacleList()) {
 			int posX = (int) o.getObstacle().getLeftBottom().x;
 
 			if (posX < (1280 * 31.9F) && posX > 1300)
 				if (RandomUtils.getRandomNumber(1, 3) <= 2) {
 					EnemyFactory.createCar(ecsWorld, physicsWorld, posX,
-							RandomUtils.getRandomNumber(GameSession.carSpeed - 5, GameSession.carSpeed), bus);
+							RandomUtils.getRandomNumber(GameSession.carSpeed - 35, GameSession.carSpeed), bus);
 				} else
 					EnemyFactory.createGrandma(ecsWorld, physicsWorld, posX, GameSession.worldSpeed, bus);
 		}

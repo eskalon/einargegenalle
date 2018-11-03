@@ -4,8 +4,8 @@ import com.artemis.Entity;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 import de.einar.ecs.components.PhysicsComponent;
@@ -28,9 +28,9 @@ public class PlayerFactory {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(PositionConverter.toPhysicUnits(playerTexture.getWidth() / 2),
-				PositionConverter.toPhysicUnits(playerTexture.getHeight() / 2));
+		CircleShape shape = new CircleShape();
+		shape.setRadius(
+				PositionConverter.toPhysicUnits(Math.max(playerTexture.getWidth(), playerTexture.getHeight()) / 2 - 5));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
@@ -38,7 +38,8 @@ public class PlayerFactory {
 		fixtureDef.filter.categoryBits = Category.PLAYER;
 		fixtureDef.filter.maskBits = Mask.PLAYER;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 150, 200, null, e, true, fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 150, 200, null, e, true,
+				fixtureDef);
 
 		PhysicsComponent phyComp = new PhysicsComponent(body);
 

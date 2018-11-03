@@ -31,8 +31,8 @@ import de.einar.util.PositionConverter;
  */
 public class GameSession {
 	public static int backgroundSpeed = 160;
-	public static int worldSpeed = 405;
-	public static int carSpeed = 510;
+	public static int worldSpeed = 390;
+	public static int carSpeed = 515;
 	public Body bounds;
 
 	private com.artemis.World entityWorld;
