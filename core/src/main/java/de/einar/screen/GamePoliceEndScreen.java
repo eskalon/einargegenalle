@@ -10,8 +10,10 @@ import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 public class GamePoliceEndScreen extends BaseUIScreen {
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
+	@InjectAsset("audio/sirens.wav")
+	private Sound policeSound;
 
-	// TODO sirenen & bild
+	// TODO Hintergrundbild
 
 	@Override
 	protected void initUI() {
@@ -26,6 +28,8 @@ public class GamePoliceEndScreen extends BaseUIScreen {
 		});
 
 		mainTable.add(testButton).padBottom(11f);
+
+		policeSound.play(1.1F);
 	}
 
 }

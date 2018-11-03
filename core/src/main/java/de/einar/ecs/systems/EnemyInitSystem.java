@@ -6,9 +6,12 @@ import com.artemis.annotations.Wire;
 import com.artemis.systems.IteratingSystem;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.google.common.eventbus.EventBus;
 
+import de.damios.gamedev.misc.RandomUtils;
 import de.einar.ecs.components.EnemyComponent;
 import de.einar.ecs.components.PhysicsComponent;
+import de.einar.events.JamSoundEvent;
 import de.einar.util.PositionConverter;
 
 /**
@@ -18,14 +21,16 @@ import de.einar.util.PositionConverter;
 public class EnemyInitSystem extends IteratingSystem {
 
 	public Body bounds;
+	private EventBus bus;
 
 	@Wire
 	ComponentMapper<PhysicsComponent> physicsMapper;
 	@Wire
 	ComponentMapper<EnemyComponent> enemyMapper;
 
-	public EnemyInitSystem() {
+	public EnemyInitSystem(EventBus bus) {
 		super(Aspect.all(EnemyComponent.class, PhysicsComponent.class));
+		this.bus = bus;
 	}
 
 	@Override
@@ -38,6 +43,10 @@ public class EnemyInitSystem extends IteratingSystem {
 		if (!ene.isStarted() && posEnemyX < 1250) {
 			ene.setStarted(true);
 			phy.setVel(PositionConverter.toPhysicUnits(new Vector2(ene.getSpeed(), 0)));
+
+			if (RandomUtils.rollTheDice(4)) {
+				bus.post(new JamSoundEvent());
+			}
 		}
 	}
 }

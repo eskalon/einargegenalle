@@ -47,6 +47,7 @@ public class PlayerFactory {
 
 		// TEXTURE
 		SpriteComponent spriteComp = new SpriteComponent(playerTexture, 0, 0);
+		spriteComp.setLayer(2);
 
 		// PLAYER
 		PlayerComponent playerComp = new PlayerComponent();

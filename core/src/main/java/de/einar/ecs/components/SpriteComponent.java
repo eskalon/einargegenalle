@@ -30,22 +30,19 @@ public class SpriteComponent extends Component {
 	private float paddingBottom = 0;
 
 	private boolean visible = true;
-	
+
 	public SpriteComponent() {
 		// default public constructor
 	}
 
 	public SpriteComponent(Texture texture, int posX, int posY) {
-		this(texture, posX, posY,
-				texture == null ? 0 : (-texture.getWidth() / 2),
+		this(texture, posX, posY, texture == null ? 0 : (-texture.getWidth() / 2),
 				texture == null ? 0 : (-texture.getHeight() / 2));
 	}
 
-	public SpriteComponent(Texture texture, int posX, int posY,
-			float paddingLeft, float paddingBottom) {
+	public SpriteComponent(Texture texture, int posX, int posY, float paddingLeft, float paddingBottom) {
 		Preconditions.checkNotNull(texture, "texture cannot be null.");
-		Preconditions.checkArgument(texture.isManaged(),
-				"texture isn't loaded.");
+		Preconditions.checkArgument(texture.isManaged(), "texture isn't loaded.");
 
 		this.texture = texture;
 		this.paddingLeft = paddingBottom;
@@ -98,6 +95,10 @@ public class SpriteComponent extends Component {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
 	}
 
 }
