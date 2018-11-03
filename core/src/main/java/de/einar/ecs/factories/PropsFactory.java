@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 import de.einar.ecs.components.BackgroundComponent;
+import de.einar.ecs.components.LerpComponent;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
 import de.einar.ecs.components.PhysicsComponent.Mask;
@@ -80,7 +81,7 @@ public class PropsFactory {
 		SpriteComponent spriteComp = new SpriteComponent(texture, 0, 0);
 
 		// Add components
-		e.edit().add(phyComp).add(spriteComp);
+		e.edit().add(phyComp).add(new LerpComponent()).add(spriteComp);
 
 		return e;
 

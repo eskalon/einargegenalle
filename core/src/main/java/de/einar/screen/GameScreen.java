@@ -47,6 +47,7 @@ public class GameScreen extends BaseScreen {
 	@Override
 	public void show() {
 		super.show();
+		stars = 0;
 
 		this.session = new GameSession(gameInputProcessor, game.getSpriteBatch(), game.getGameCamera(),
 				game.getDebugCamera(), game.getEventBus());

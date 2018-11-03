@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
+import de.einar.ecs.components.LerpComponent;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
 import de.einar.ecs.components.PhysicsComponent.Mask;
@@ -53,7 +54,7 @@ public class PlayerFactory {
 		PlayerComponent playerComp = new PlayerComponent();
 
 		// Add components
-		e.edit().add(phyComp).add(playerComp).add(spriteComp);
+		e.edit().add(phyComp).add(new LerpComponent()).add(playerComp).add(spriteComp);
 
 		return e;
 	}
