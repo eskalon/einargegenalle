@@ -2,6 +2,7 @@ package de.einar.ecs.components;
 
 import com.artemis.Component;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.google.common.base.Preconditions;
 
 import de.einar.ecs.systems.RenderPositionUpdateSystem;
@@ -35,6 +36,26 @@ public class SpriteComponent extends Component {
 		// default public constructor
 	}
 
+	//TODO: Keyframes
+	private float frameDuration = 0.6F;
+	private Animation animation = new Animation(frameDuration);
+	private boolean isPlaying;
+
+
+
+	public boolean isPlaying() {
+		return isPlaying;
+	}
+
+	public void setFrameDuration(float frameDuration) {
+		this.frameDuration = frameDuration;
+	}
+
+	public void setPlaying(boolean playing) {
+		isPlaying = playing;
+	}
+
+
 	public SpriteComponent(Texture texture, int posX, int posY) {
 		this(texture, posX, posY,
 				texture == null ? 0 : (-texture.getWidth() / 2),
@@ -48,8 +69,8 @@ public class SpriteComponent extends Component {
 				"texture isn't loaded.");
 
 		this.texture = texture;
-		this.paddingLeft = paddingBottom;
-		this.paddingBottom = paddingLeft;
+		this.paddingLeft = paddingLeft;
+		this.paddingBottom = paddingBottom;
 		this.posX = posX;
 		this.posY = posY;
 	}

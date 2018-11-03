@@ -7,6 +7,7 @@ import com.google.common.eventbus.Subscribe;
 import de.einar.core.GameSession;
 import de.einar.events.PlayerDeathEvent;
 import de.einar.events.PlayerWinEvent;
+import de.einar.events.PowerUpEvent;
 import de.einar.input.GameInputProcessor;
 
 /**
@@ -52,6 +53,11 @@ public class GameScreen extends BaseScreen {
 
 	@Subscribe
 	public void onWinEvent(PlayerWinEvent ev) {
+
+	}
+
+	@Subscribe
+	public void onPowerUpEvent(PowerUpEvent ev) {
 
 	}
 
