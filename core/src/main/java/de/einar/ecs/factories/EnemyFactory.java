@@ -39,7 +39,7 @@ public class EnemyFactory {
 
 		// PHYSICS
 		CircleShape shape = new CircleShape();
-		shape.setRadius(PositionConverter.toPhysicUnits(Math.max(text.getWidth(), text.getHeight()) / 2 -5));
+		shape.setRadius(PositionConverter.toPhysicUnits(Math.max(text.getWidth(), text.getHeight()) / 2 - 7));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;

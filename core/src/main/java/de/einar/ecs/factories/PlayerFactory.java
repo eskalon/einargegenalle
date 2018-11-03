@@ -31,7 +31,7 @@ public class PlayerFactory {
 		// PHYSICS
 		CircleShape shape = new CircleShape();
 		shape.setRadius(
-				PositionConverter.toPhysicUnits(Math.max(playerTexture.getWidth(), playerTexture.getHeight()) / 2 - 5));
+				PositionConverter.toPhysicUnits(Math.max(playerTexture.getWidth(), playerTexture.getHeight()) / 2));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
