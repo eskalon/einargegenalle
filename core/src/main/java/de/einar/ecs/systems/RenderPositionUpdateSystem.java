@@ -35,17 +35,19 @@ public class RenderPositionUpdateSystem extends IteratingSystem {
 			SpriteComponent spriteComp = spriteMapper.get(id);
 			lerpComp.intervall += world.delta;
 
-			int x = lerpActivated
-					? (int) lerp(spriteComp.getPosX(),
-							PositionConverter.toPixels(lerpComp.targetPosX),
-							(lerpComp.intervall / PhysicsSystem.interval))
-					: PositionConverter.toPixels(lerpComp.targetPosX);
+			int x = PositionConverter.toPixels(lerpComp.targetPosX);
+			int y = PositionConverter.toPixels(lerpComp.targetPosY);
 
-			int y = lerpActivated
-					? (int) lerp(spriteComp.getPosY(),
-							PositionConverter.toPixels(lerpComp.targetPosY),
-							(lerpComp.intervall / PhysicsSystem.interval))
-					: PositionConverter.toPixels(lerpComp.targetPosY);
+			if (lerpActivated && lerpComp.intervall < PhysicsSystem.interval) {
+				x = Math.round(lerp(spriteComp.getPosX(),
+
+						PositionConverter.toPixels(lerpComp.targetPosX),
+						(lerpComp.intervall / PhysicsSystem.interval)));
+
+				y = Math.round((int) lerp(spriteComp.getPosY(), PositionConverter.toPixels(lerpComp.targetPosY),
+						(lerpComp.intervall / PhysicsSystem.interval)));
+
+			}
 
 			spriteComp.setPosX(x);
 			spriteComp.setPosY(y);

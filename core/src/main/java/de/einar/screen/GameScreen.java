@@ -53,7 +53,7 @@ public class GameScreen extends BaseScreen {
 				game.getDebugCamera(), game.getEventBus());
 		game.getEventBus().register(session);
 
-		backgroundSoundId = streetSound.loop(3F);
+		backgroundSoundId = streetSound.loop(4F);
 	}
 
 	@Override

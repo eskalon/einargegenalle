@@ -14,6 +14,8 @@ Eine Liste aller Contributor und der genutzten externen Assets:
   Author: Andreas Kambanis (https://www.flickr.com/photos/andikam/) \
   License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/legalcode)
   
+### Sounds
+  
 * **Sirens** (core/assets/audio/sirens.wav)
   http://soundbible.com/1266-City-Ambiance.html \
   Author: lezer \
@@ -48,4 +50,11 @@ Eine Liste aller Contributor und der genutzten externen Assets:
   https://freesound.org/people/Rylius/sounds/164828/ \
   Author: Rylius \
   License: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
+  
+### Fonts
+  
+* The font used on the buttons is:
+  https://www.1001fonts.com/dpcomic-font.html#license \
+  Author: codeman38 \
+  License: Custom License (see the linked site)
   

@@ -19,7 +19,7 @@ import de.einar.util.PositionConverter;
 
 public class PropsFactory {
 
-	@InjectAsset("textures/player.png")
+	@InjectAsset("textures/granny_dead.png")
 	private static Texture deadGrannyTexture;
 	@InjectAsset("textures/background.png")
 	private static Texture background1Texture;
