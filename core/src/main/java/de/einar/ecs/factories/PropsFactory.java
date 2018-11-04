@@ -87,7 +87,8 @@ public class PropsFactory {
 		shape.dispose();
 
 		// TEXTURE
-		SpriteComponent spriteComp = new SpriteComponent(texture, 0, 0);
+		SpriteComponent spriteComp = new SpriteComponent(texture, (int) pos.x,
+				(int) pos.y);
 
 		// Add components
 		e.edit().add(phyComp).add(new LerpComponent()).add(spriteComp);
