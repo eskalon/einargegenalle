@@ -11,7 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 
 /**
- * This screen represents the main menu.
+ * This screen represents screen shown when the game is "won".
  */
 public class GameWinScreen extends BaseUIScreen {
 	@InjectAsset("audio/button-tick.mp3")

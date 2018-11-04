@@ -11,6 +11,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 
 public class GamePoliceEndScreen extends BaseUIScreen {
+	
+	// TODO Hintergrundbild
+	@InjectAsset("ui/main-menu-background.png")
+	private Texture backgroundImage;
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
 	@InjectAsset("audio/sirens.wav")
@@ -20,10 +24,10 @@ public class GamePoliceEndScreen extends BaseUIScreen {
 	@InjectAsset("ui/done_button_down.png")
 	private Texture doneButtonDownImage;
 
-	// TODO Hintergrundbild
-
 	@Override
 	protected void initUI() {
+		super.backgroundTexture = backgroundImage;
+		
 		ImageButton testButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(doneButtonImage)),
 				new TextureRegionDrawable(new TextureRegion(doneButtonDownImage)));
 		testButton.addListener(new InputListener() {

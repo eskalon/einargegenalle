@@ -14,8 +14,12 @@ Eine Liste aller Contributor und der genutzten externen Assets:
   Author: Andreas Kambanis (https://www.flickr.com/photos/andikam/) \
   License: [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/legalcode)
   
-### Sounds
+* **Battery Icons** are based on:
+  https://pixabay.com/de/leer-batterie-anzeige-energie-31635/ \
+  Author: Clker-Free-Vector-Images (https://pixabay.com/de/users/Clker-Free-Vector-Images-3736/) \
+  License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
   
+### Sounds
 * **Sirens** (core/assets/audio/sirens.wav)
   http://soundbible.com/1266-City-Ambiance.html \
   Author: lezer \
@@ -51,8 +55,12 @@ Eine Liste aller Contributor und der genutzten externen Assets:
   Author: Rylius \
   License: [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/)
   
-### Fonts
+* **Message received** (core/assets/audio/received.wav)
+  https://freesound.org/people/CommanderRobot/sounds/264828/ \
+  Author: CommanderRobot \
+  License: [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/)
   
+### Fonts
 * The font used on the buttons is:
   https://www.1001fonts.com/dpcomic-font.html#license \
   Author: codeman38 \
