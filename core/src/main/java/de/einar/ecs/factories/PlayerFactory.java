@@ -18,8 +18,8 @@ import de.einar.util.PositionConverter;
 
 public class PlayerFactory {
 
-	@InjectAsset("textures/player.png")
-	private static Texture playerTexture;
+	@InjectAsset("textures/player_animation.png")
+	private static Texture playerAnimationTexture;
 
 	private PlayerFactory() {
 		// not used
@@ -30,8 +30,7 @@ public class PlayerFactory {
 
 		// PHYSICS
 		CircleShape shape = new CircleShape();
-		shape.setRadius(
-				PositionConverter.toPhysicUnits(Math.max(playerTexture.getWidth(), playerTexture.getHeight()) / 2));
+		shape.setRadius(PositionConverter.toPhysicUnits(playerAnimationTexture.getHeight() + 2) / 2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
@@ -45,9 +44,9 @@ public class PlayerFactory {
 		PhysicsComponent phyComp = new PhysicsComponent(body);
 
 		shape.dispose();
-
 		// TEXTURE
-		SpriteComponent spriteComp = new SpriteComponent(playerTexture, 0, 0);
+		SpriteComponent spriteComp = new SpriteComponent(playerAnimationTexture, (1f / 9f), 1, 8, 0, 0,
+				(-playerAnimationTexture.getHeight() / 2), (-playerAnimationTexture.getWidth() / 8 / 2 - 1));
 		spriteComp.setLayer(2);
 
 		// PLAYER
