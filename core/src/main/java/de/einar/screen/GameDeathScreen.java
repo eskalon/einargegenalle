@@ -14,8 +14,7 @@ import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
  * This screen represents the death screen.
  */
 public class GameDeathScreen extends BaseUIScreen {
-
-	@InjectAsset("ui/death-background.png")
+	@InjectAsset("ui/death-background.jpg")
 	private Texture backgroundImage;
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
@@ -28,11 +27,14 @@ public class GameDeathScreen extends BaseUIScreen {
 	protected void initUI() {
 		super.backgroundTexture = backgroundImage;
 
-		ImageButton testButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(doneButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(doneButtonDownImage)));
+		ImageButton testButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(doneButtonImage)),
+				new TextureRegionDrawable(
+						new TextureRegion(doneButtonDownImage)));
 		testButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 				game.pushScreen("mainMenu");
 				return true;

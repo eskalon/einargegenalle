@@ -1,6 +1,7 @@
 package de.einar.screen;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -32,15 +33,20 @@ public class GameIntroScreen extends BaseUIScreen {
 
 	@Override
 	protected void initUI() {
+		backgroundColor = new Color(0.141f, 0.141f, 0.141f, 1f);
 		ImageButton sendTestMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
+		
 		sendTestMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
+				// TODO angezeigtes Bild entsprechend ändern & Buttons
+				// deaktivieren
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -48,7 +54,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
+						// TODO angezeigtes Bild entsprechend ändern & Buttons
+						// anpassen
 
 						game.pushScreen("game");
 					}

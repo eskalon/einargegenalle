@@ -1,6 +1,7 @@
 package de.einar.screen;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -36,6 +37,7 @@ public class GameWinScreen extends BaseUIScreen {
 
 	@Override
 	protected void initUI() {
+		backgroundColor = new Color(0.141f, 0.141f, 0.141f, 1f);
 		Texture image = null;
 
 		switch (game.session.chosenChatOption) {
@@ -73,11 +75,13 @@ public class GameWinScreen extends BaseUIScreen {
 		}
 		}
 
-		ImageButton endButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(image)),
+		ImageButton endButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(image)),
 				new TextureRegionDrawable(new TextureRegion(image)));
 		endButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 				game.pushScreen("mainMenu");
 				return true;
