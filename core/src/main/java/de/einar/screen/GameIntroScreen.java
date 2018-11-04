@@ -28,6 +28,8 @@ public class GameIntroScreen extends BaseUIScreen {
 	private Texture startPhoneTexture;
 	@InjectAsset("ui/phone/phone_dead.png")
 	private Texture deadPhoneTexture;
+	@InjectAsset("ui/phone/speechbubble.png")
+	private Texture bubbleTexture;
 
 	// OPTION 1:
 	@InjectAsset("ui/phone/option1/option1_1.png")
@@ -132,6 +134,7 @@ public class GameIntroScreen extends BaseUIScreen {
 		Table sideTable = new Table();
 		backgroundColor = new Color(0.141f, 0.141f, 0.141f, 1f);
 		Image phoneImage = new Image(startPhoneTexture);
+		Image bubbleImage = new Image(bubbleTexture);
 
 		ImageButton sendFirstMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(option1Image)),
@@ -238,6 +241,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -246,7 +251,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
@@ -280,6 +285,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -288,7 +295,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
@@ -354,6 +361,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -362,7 +371,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
@@ -396,6 +405,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -404,7 +415,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
@@ -470,6 +481,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -478,7 +491,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
@@ -512,6 +525,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -520,7 +535,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
@@ -586,6 +601,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -594,7 +611,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
@@ -628,6 +645,8 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						phoneImage.setDrawable(new TextureRegionDrawable(
 								new TextureRegion(deadPhoneTexture)));
+						sideTable.clear();
+						sideTable.add(bubbleImage);
 					}
 				}, 3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -636,7 +655,7 @@ public class GameIntroScreen extends BaseUIScreen {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 5.75F);
+				}, 6.75F);
 
 				return true;
 			}
