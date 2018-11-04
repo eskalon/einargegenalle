@@ -101,11 +101,31 @@ public class GameIntroScreen extends BaseUIScreen {
 	@InjectAsset("ui/phone/option4/option4_5b.png")
 	private Texture option4_5bPhoneTexture;
 
-	// TEST:
-	@InjectAsset("ui/start_button.png")
-	private Texture startButtonImage;
-	@InjectAsset("ui/start_button_down.png")
-	private Texture startButtonDownImage;
+	// BUTTONS:
+	@InjectAsset("ui/phone/option1button.png")
+	private Texture option1Image;
+	@InjectAsset("ui/phone/option2button.png")
+	private Texture option2Image;
+	@InjectAsset("ui/phone/option3button.png")
+	private Texture option3Image;
+	@InjectAsset("ui/phone/option4button.png")
+	private Texture option4Image;
+	@InjectAsset("ui/phone/option1abutton.png")
+	private Texture option1aImage;
+	@InjectAsset("ui/phone/option1bbutton.png")
+	private Texture option1bImage;
+	@InjectAsset("ui/phone/option2abutton.png")
+	private Texture option2aImage;
+	@InjectAsset("ui/phone/option2bbutton.png")
+	private Texture option2bImage;
+	@InjectAsset("ui/phone/option3abutton.png")
+	private Texture option3aImage;
+	@InjectAsset("ui/phone/option3bbutton.png")
+	private Texture option3bImage;
+	@InjectAsset("ui/phone/option4abutton.png")
+	private Texture option4aImage;
+	@InjectAsset("ui/phone/option4bbutton.png")
+	private Texture option4bImage;
 
 	@Override
 	protected void initUI() {
@@ -114,61 +134,49 @@ public class GameIntroScreen extends BaseUIScreen {
 		Image phoneImage = new Image(startPhoneTexture);
 
 		ImageButton sendFirstMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option1Image)),
+				new TextureRegionDrawable(new TextureRegion(option1Image)));
 		ImageButton sendSecondMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option2Image)),
+				new TextureRegionDrawable(new TextureRegion(option2Image)));
 		ImageButton sendThirdMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option3Image)),
+				new TextureRegionDrawable(new TextureRegion(option3Image)));
 		ImageButton sendFourthMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option4Image)),
+				new TextureRegionDrawable(new TextureRegion(option4Image)));
 
-		// Buttons after option 1
+		//Buttons after option 1
 		ImageButton option1aMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option1aImage)),
+				new TextureRegionDrawable(new TextureRegion(option1aImage)));
 		ImageButton option1bMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option1bImage)),
+				new TextureRegionDrawable(new TextureRegion(option1bImage)));
 
-		// Buttons after option 2
+		//Buttons after option 2
 		ImageButton option2aMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option2aImage)),
+				new TextureRegionDrawable(new TextureRegion(option2aImage)));
 		ImageButton option2bMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option2bImage)),
+				new TextureRegionDrawable(new TextureRegion(option2bImage)));
 
-		// Buttons after option 3
+		//Buttons after option 3
 		ImageButton option3aMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option3aImage)),
+				new TextureRegionDrawable(new TextureRegion(option3aImage)));
 		ImageButton option3bMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option3bImage)),
+				new TextureRegionDrawable(new TextureRegion(option3bImage)));
 
-		// Buttons after option 4
+		//Buttons after option 4
 		ImageButton option4aMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option4aImage)),
+				new TextureRegionDrawable(new TextureRegion(option4aImage)));
 		ImageButton option4bMessageButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(
-						new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(new TextureRegion(option4bImage)),
+				new TextureRegionDrawable(new TextureRegion(option4bImage)));
 
 		// OPTION 1
 		sendFirstMessageButton.addListener(new InputListener() {
