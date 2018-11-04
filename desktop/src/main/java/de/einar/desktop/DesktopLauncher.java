@@ -17,7 +17,7 @@ public class DesktopLauncher {
 		config.height = 720;
 		config.width = 1280;
 		config.resizable = false;
-		config.foregroundFPS = 120;
+		config.foregroundFPS = 0;
 		config.addIcon("icons/icon16.png", Files.FileType.Absolute);
 		config.addIcon("icons/icon32.png", Files.FileType.Absolute);
 		config.addIcon("icons/icon48.png", Files.FileType.Absolute);

@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
+import de.einar.ecs.components.LerpComponent;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
 import de.einar.ecs.components.PhysicsComponent.Mask;
@@ -17,8 +18,8 @@ import de.einar.util.PositionConverter;
 
 public class PlayerFactory {
 
-	@InjectAsset("textures/player.png")
-	private static Texture playerTexture;
+	@InjectAsset("textures/player_animation.png")
+	private static Texture playerAnimationTexture;
 
 	private PlayerFactory() {
 		// not used
@@ -29,8 +30,7 @@ public class PlayerFactory {
 
 		// PHYSICS
 		CircleShape shape = new CircleShape();
-		shape.setRadius(
-				PositionConverter.toPhysicUnits(Math.max(playerTexture.getWidth(), playerTexture.getHeight()) / 2 - 5));
+		shape.setRadius(PositionConverter.toPhysicUnits(playerAnimationTexture.getHeight() + 2) / 2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
@@ -44,15 +44,16 @@ public class PlayerFactory {
 		PhysicsComponent phyComp = new PhysicsComponent(body);
 
 		shape.dispose();
-
 		// TEXTURE
-		SpriteComponent spriteComp = new SpriteComponent(playerTexture, 0, 0);
+		SpriteComponent spriteComp = new SpriteComponent(playerAnimationTexture, (1f / 9f), 1, 8, 0, 0,
+				(-playerAnimationTexture.getHeight() / 2), (-playerAnimationTexture.getWidth() / 8 / 2 - 1));
+		spriteComp.setLayer(2);
 
 		// PLAYER
 		PlayerComponent playerComp = new PlayerComponent();
 
 		// Add components
-		e.edit().add(phyComp).add(playerComp).add(spriteComp);
+		e.edit().add(phyComp).add(new LerpComponent()).add(playerComp).add(spriteComp);
 
 		return e;
 	}

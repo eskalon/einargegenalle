@@ -15,6 +15,7 @@ import de.einar.collisions.CollisionListener;
 import de.einar.collisions.GrannyPhysicsListener;
 import de.einar.core.GameSession;
 import de.einar.ecs.components.EnemyComponent;
+import de.einar.ecs.components.LerpComponent;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
 import de.einar.ecs.components.PhysicsComponent.Mask;
@@ -38,7 +39,7 @@ public class EnemyFactory {
 
 		// PHYSICS
 		CircleShape shape = new CircleShape();
-		shape.setRadius(PositionConverter.toPhysicUnits(Math.max(text.getWidth(), text.getHeight()) / 2 -5));
+		shape.setRadius(PositionConverter.toPhysicUnits(Math.max(text.getWidth(), text.getHeight()) / 2 - 7));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
@@ -66,7 +67,7 @@ public class EnemyFactory {
 			enemyComp.setSpeed(-speed);
 
 		// Add components
-		e.edit().add(phyComp).add(enemyComp).add(spriteComp);
+		e.edit().add(phyComp).add(enemyComp).add(new LerpComponent()).add(spriteComp);
 	}
 
 	public static void createCar(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,

@@ -2,6 +2,8 @@ package de.einar.ecs.components;
 
 import com.artemis.Component;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.google.common.base.Preconditions;
 
 import de.einar.ecs.systems.RenderPositionUpdateSystem;
@@ -24,28 +26,54 @@ public class SpriteComponent extends Component {
 	private int posY;
 
 	private Texture texture;
+
+	private boolean isAnimation = false;
+	private Animation<TextureRegion> animation;
+	private float stateTime = 0f;
+
 	private int layer = 1;
 
 	private float paddingLeft = 0;
 	private float paddingBottom = 0;
 
 	private boolean visible = true;
-	
+
 	public SpriteComponent() {
 		// default public constructor
 	}
 
 	public SpriteComponent(Texture texture, int posX, int posY) {
-		this(texture, posX, posY,
-				texture == null ? 0 : (-texture.getWidth() / 2),
+		this(texture, posX, posY, texture == null ? 0 : (-texture.getWidth() / 2),
 				texture == null ? 0 : (-texture.getHeight() / 2));
 	}
 
-	public SpriteComponent(Texture texture, int posX, int posY,
+	public SpriteComponent(Texture textureSheet, float frameDuration, int rows, int cols, int posX, int posY,
 			float paddingLeft, float paddingBottom) {
+		Preconditions.checkNotNull(textureSheet, "texture cannot be null.");
+		Preconditions.checkArgument(textureSheet.isManaged(), "texture isn't loaded.");
+
+		// Create frames out of texture sheet
+		TextureRegion[][] tmp = TextureRegion.split(textureSheet, textureSheet.getWidth() / cols,
+				textureSheet.getHeight() / rows);
+		TextureRegion[] frames = new TextureRegion[cols * rows];
+		int index = 0;
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				frames[index++] = tmp[i][j];
+			}
+		}
+
+		this.animation = new Animation<TextureRegion>(frameDuration, frames);
+		this.isAnimation = true;
+		this.paddingLeft = paddingBottom;
+		this.paddingBottom = paddingLeft;
+		this.posX = posX;
+		this.posY = posY;
+	}
+
+	public SpriteComponent(Texture texture, int posX, int posY, float paddingLeft, float paddingBottom) {
 		Preconditions.checkNotNull(texture, "texture cannot be null.");
-		Preconditions.checkArgument(texture.isManaged(),
-				"texture isn't loaded.");
+		Preconditions.checkArgument(texture.isManaged(), "texture isn't loaded.");
 
 		this.texture = texture;
 		this.paddingLeft = paddingBottom;
@@ -55,7 +83,19 @@ public class SpriteComponent extends Component {
 	}
 
 	public Texture getTexture() {
+		Preconditions.checkState(!isAnimation);
 		return this.texture;
+	}
+
+	public TextureRegion getTexture(float delta) {
+		Preconditions.checkState(isAnimation);
+
+		stateTime += delta;
+		return animation.getKeyFrame(stateTime, true);
+	}
+
+	public boolean isAnimation() {
+		return isAnimation;
 	}
 
 	/**
@@ -98,6 +138,10 @@ public class SpriteComponent extends Component {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+
+	public void setLayer(int layer) {
+		this.layer = layer;
 	}
 
 }

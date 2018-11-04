@@ -42,8 +42,12 @@ public class SpriteRenderSystem extends EntitySystem {
 
 	protected void renderSpriteComponent(SpriteComponent sprite) {
 		if (sprite.isVisible())
-			batch.draw(sprite.getTexture(), sprite.getPosX() + sprite.getPaddingLeft(),
-					sprite.getPosY() + sprite.getPaddingBottom());
+			if (!sprite.isAnimation())
+				batch.draw(sprite.getTexture(), sprite.getPosX() + sprite.getPaddingLeft(),
+						sprite.getPosY() + sprite.getPaddingBottom());
+			else
+				batch.draw(sprite.getTexture(world.getDelta()), sprite.getPosX() + sprite.getPaddingLeft(),
+						sprite.getPosY() + sprite.getPaddingBottom());
 	}
 
 	private void sortSprites() {
@@ -70,7 +74,7 @@ public class SpriteRenderSystem extends EntitySystem {
 	@Override
 	protected void processSystem() {
 		gameCamera.update();
-		
+
 		batch.setProjectionMatrix(gameCamera.combined);
 		batch.begin();
 		for (int i = 0; sortedSprites.size() > i; i++) {

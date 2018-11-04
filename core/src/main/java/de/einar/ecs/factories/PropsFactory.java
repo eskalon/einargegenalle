@@ -9,6 +9,8 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
+import de.einar.ecs.components.BackgroundComponent;
+import de.einar.ecs.components.LerpComponent;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.components.PhysicsComponent.Category;
 import de.einar.ecs.components.PhysicsComponent.Mask;
@@ -17,11 +19,35 @@ import de.einar.util.PositionConverter;
 
 public class PropsFactory {
 
-	@InjectAsset("textures/player.png")
+	@InjectAsset("textures/granny_dead.png")
 	private static Texture deadGrannyTexture;
+	@InjectAsset("textures/background.png")
+	private static Texture background1Texture;
+	@InjectAsset("textures/background.png")
+	private static Texture background2Texture;
 
 	private PropsFactory() {
 		// not used
+	}
+
+	public static void createBackground(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld) {
+		Entity e = ecsWorld.createEntity();
+
+		// TEXTURE
+		SpriteComponent spriteComp = new SpriteComponent(background1Texture, 0, 0, 0, 0);
+		spriteComp.setLayer(-1);
+
+		// Add components
+		e.edit().add(new BackgroundComponent()).add(spriteComp);
+
+		Entity e2 = ecsWorld.createEntity();
+
+		// TEXTURE
+		SpriteComponent spriteComp2 = new SpriteComponent(background2Texture, background1Texture.getWidth(), 0, 0, 0);
+		spriteComp2.setLayer(-1);
+
+		// Add components
+		e2.edit().add(new BackgroundComponent()).add(spriteComp2);
 	}
 
 	public static void createDeadGranny(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
@@ -29,7 +55,7 @@ public class PropsFactory {
 		createDeadGranny(ecsWorld, physicsWorld, pos, vel, deadGrannyTexture);
 	}
 
-	public static void createDeadGranny(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
+	public static Entity createDeadGranny(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
 			Vector2 pos, Vector2 vel, Texture texture) {
 		Entity e = ecsWorld.createEntity();
 
@@ -55,7 +81,9 @@ public class PropsFactory {
 		SpriteComponent spriteComp = new SpriteComponent(texture, 0, 0);
 
 		// Add components
-		e.edit().add(phyComp).add(spriteComp);
+		e.edit().add(phyComp).add(new LerpComponent()).add(spriteComp);
+
+		return e;
 
 	}
 

@@ -13,6 +13,7 @@ import com.google.common.eventbus.Subscribe;
 import de.einar.collisions.GameContactListener;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.factories.PropsFactory;
+import de.einar.ecs.systems.BackgroundMovementSystem;
 import de.einar.ecs.systems.DebugPhysicsRenderSystem;
 import de.einar.ecs.systems.EnemyInitSystem;
 import de.einar.ecs.systems.EntityPhysicsHandlerSystem;
@@ -30,9 +31,10 @@ import de.einar.util.PositionConverter;
  * This class handles all the basic game stuff.
  */
 public class GameSession {
-	public static int backgroundSpeed = 160;
-	public static int worldSpeed = 390;
-	public static int carSpeed = 515;
+	public static int backgroundSpeed = 305;
+	public static int worldSpeed = 380;
+	public static int carSpeed = 540;
+	public static int worldLenght = 18;
 	public Body bounds;
 
 	private com.artemis.World entityWorld;
@@ -41,6 +43,7 @@ public class GameSession {
 	private SpriteRenderSystem spriteRenderSystem;
 	private DebugPhysicsRenderSystem debugRenderSystem;
 	private PhysicsSystem physicsSystem;
+	private BackgroundMovementSystem worldMovementSystem;
 
 	/**
 	 * Creates a new game session.
@@ -60,7 +63,8 @@ public class GameSession {
 		// ECS
 		spriteRenderSystem = new SpriteRenderSystem(gameCamera, batch);
 		debugRenderSystem = new DebugPhysicsRenderSystem(gameCamera, debugCamera, physicsWorld);
-		EnemyInitSystem initS = new EnemyInitSystem();
+		worldMovementSystem = new BackgroundMovementSystem();
+		EnemyInitSystem initS = new EnemyInitSystem(bus);
 		physicsSystem = new PhysicsSystem(physicsWorld);
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				/* Render */
@@ -71,7 +75,7 @@ public class GameSession {
 				/* Win */
 				.with(winS)
 				/* Misc */
-				.with(new InputProcessingSystem(inputListener)).with(initS).build();
+				.with(new InputProcessingSystem(inputListener)).with(initS).with(worldMovementSystem).build();
 		this.entityWorld = new com.artemis.World(config);
 
 		// Generate world
@@ -115,6 +119,7 @@ public class GameSession {
 	@Subscribe
 	public void onDeathEvent(PlayerDeathEvent ev) {
 		physicsSystem.setEnabled(false);
+		worldMovementSystem.setEnabled(false);
 	}
 
 	@Subscribe
