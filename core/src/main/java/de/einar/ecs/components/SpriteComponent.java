@@ -65,8 +65,8 @@ public class SpriteComponent extends Component {
 
 		this.animation = new Animation<TextureRegion>(frameDuration, frames);
 		this.isAnimation = true;
-		this.paddingLeft = paddingBottom;
-		this.paddingBottom = paddingLeft;
+		this.paddingLeft = paddingLeft;
+		this.paddingBottom = paddingBottom;
 		this.posX = posX;
 		this.posY = posY;
 	}

@@ -15,14 +15,13 @@ import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
  */
 public class GameDeathScreen extends BaseUIScreen {
 
-	// TODO Hintergrundbild
-	@InjectAsset("ui/main-menu-background.png")
+	@InjectAsset("ui/death-background.png")
 	private Texture backgroundImage;
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
-	@InjectAsset("ui/done_button.png")
+	@InjectAsset("ui/done2_button.png")
 	private Texture doneButtonImage;
-	@InjectAsset("ui/done_button_down.png")
+	@InjectAsset("ui/done2_button_down.png")
 	private Texture doneButtonDownImage;
 
 	@Override
@@ -40,7 +39,7 @@ public class GameDeathScreen extends BaseUIScreen {
 			}
 		});
 
-		mainTable.add(testButton).padBottom(11f);
+		mainTable.add(testButton).padTop(395);
 	}
 
 }

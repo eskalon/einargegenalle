@@ -3,7 +3,7 @@ package de.einar.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.utils.Timer;
+import com.badlogic.gdx.graphics.Texture;
 import com.google.common.eventbus.Subscribe;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
@@ -20,8 +20,6 @@ import de.einar.input.GameInputProcessor;
  */
 public class GameScreen extends BaseScreen {
 
-	private int stars;
-	private GameSession session;
 	private GameInputProcessor gameInputProcessor;
 	@InjectAsset("audio/crash.wav")
 	private Sound crashSound;
@@ -36,6 +34,11 @@ public class GameScreen extends BaseScreen {
 	@InjectAsset("audio/street.wav")
 	private Sound streetSound;
 
+	@InjectAsset("ui/Full_Star.png")
+	private Texture fullStarTexture;
+	@InjectAsset("ui/Empty_Star.png")
+	private Texture emptyStarTexture;
+
 	private long backgroundSoundId;
 
 	@Override
@@ -47,11 +50,10 @@ public class GameScreen extends BaseScreen {
 	@Override
 	public void show() {
 		super.show();
-		stars = 0;
 
-		this.session = new GameSession(gameInputProcessor, game.getSpriteBatch(), game.getGameCamera(),
+		game.session = new GameSession(gameInputProcessor, game.getSpriteBatch(), game.getGameCamera(),
 				game.getDebugCamera(), game.getEventBus());
-		game.getEventBus().register(session);
+		game.getEventBus().register(game.session);
 
 		backgroundSoundId = streetSound.loop(4F);
 	}
@@ -62,12 +64,26 @@ public class GameScreen extends BaseScreen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getSpriteBatch().setProjectionMatrix(game.getGameCamera().combined);
 
-		session.render(delta);
+		// game.session.render(delta); // Render Systeme sind anscheinend nicht passiv
+		// (?)
 
 		if (game.showDebugStuff())
-			session.renderDebug();
+			game.session.renderDebug();
 
-		session.update(delta);
+		game.session.update(delta);
+
+		drawStars();
+	}
+
+	private void drawStars() {
+		game.getSpriteBatch().begin();
+		game.getSpriteBatch().setProjectionMatrix(game.getUICamera().combined);
+
+		game.getSpriteBatch().draw(game.session.stars > 0 ? fullStarTexture : emptyStarTexture, 1100, 670, 50, 50);
+		game.getSpriteBatch().draw(game.session.stars > 1 ? fullStarTexture : emptyStarTexture, 1160, 670, 50, 50);
+		game.getSpriteBatch().draw(game.session.stars > 2 ? fullStarTexture : emptyStarTexture, 1220, 670, 50, 50);
+
+		game.getSpriteBatch().end();
 	}
 
 	@Subscribe
@@ -99,13 +115,7 @@ public class GameScreen extends BaseScreen {
 	@Subscribe
 	public void onDeathEvent(PlayerDeathEvent ev) {
 		crashSound.play(1F);
-
-		Timer.instance().scheduleTask(new Timer.Task() {
-			@Override
-			public void run() {
-				game.pushScreen("game-death");
-			}
-		}, 1.5F);
+		game.pushScreen("game-death");
 	}
 
 	@Subscribe
@@ -117,11 +127,10 @@ public class GameScreen extends BaseScreen {
 	public void onGrannyContactEvent(GrannyContatcEvent ev) {
 		dyingSound.play(1.1F);
 
-		// TODO Sterne anzeigen
 		if (ev.byPlayer)
-			stars++;
+			game.session.stars++;
 
-		if (stars > 3)
+		if (game.session.stars > 3)
 			game.pushScreen("game-police-end");
 	}
 
@@ -131,9 +140,8 @@ public class GameScreen extends BaseScreen {
 
 		streetSound.stop(backgroundSoundId);
 
-		game.getEventBus().unregister(session);
-		session.dispose();
-		session = null;
+		game.getEventBus().unregister(game.session);
+		game.session.dispose();
 	}
 
 	@Override

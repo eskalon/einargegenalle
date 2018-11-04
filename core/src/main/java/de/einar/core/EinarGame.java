@@ -54,6 +54,8 @@ public class EinarGame extends ScreenGame {
 	private BasicInputMultiplexer inputProcessor;
 
 	private Skin uiSkin;
+	
+	public GameSession session;
 
 	/**
 	 * Event bus. All events are queued first and then taken care of in the

@@ -46,7 +46,7 @@ public class PlayerFactory {
 		shape.dispose();
 		// TEXTURE
 		SpriteComponent spriteComp = new SpriteComponent(playerAnimationTexture, (1f / 9f), 1, 8, 0, 0,
-				(-playerAnimationTexture.getHeight() / 2), (-playerAnimationTexture.getWidth() / 8 / 2 - 1));
+				(-playerAnimationTexture.getWidth() / 8 / 2), (-playerAnimationTexture.getHeight() / 2));
 		spriteComp.setLayer(2);
 
 		// PLAYER

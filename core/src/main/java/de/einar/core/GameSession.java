@@ -33,9 +33,11 @@ import de.einar.util.PositionConverter;
 public class GameSession {
 	public static int backgroundSpeed = 305;
 	public static int worldSpeed = 380;
-	public static int carSpeed = 540;
+	public static int carSpeed = 550;
 	public static int worldLenght = 18;
 	public Body bounds;
+
+	public int stars = 0;
 
 	private com.artemis.World entityWorld;
 	private com.badlogic.gdx.physics.box2d.World physicsWorld;
@@ -44,6 +46,8 @@ public class GameSession {
 	private DebugPhysicsRenderSystem debugRenderSystem;
 	private PhysicsSystem physicsSystem;
 	private BackgroundMovementSystem worldMovementSystem;
+
+	public int chosenChatOption = 0;
 
 	/**
 	 * Creates a new game session.
