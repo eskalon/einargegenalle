@@ -11,6 +11,7 @@ import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 
 import de.einar.collisions.GameContactListener;
+import de.einar.ecs.components.EnemyComponent;
 import de.einar.ecs.components.PhysicsComponent;
 import de.einar.ecs.factories.PropsFactory;
 import de.einar.ecs.systems.BackgroundMovementSystem;
@@ -134,7 +135,8 @@ public class GameSession {
 	public void onGrannyContactEvent(GrannyContatcEvent ev) {
 		PhysicsComponent comp = ev.granny.getComponent(PhysicsComponent.class);
 		PropsFactory.createDeadGranny(entityWorld, physicsWorld, comp.getPos(),
-				comp.getVel());
+				comp.getVel(),
+				ev.granny.getComponent(EnemyComponent.class).type);
 		ev.granny.deleteFromWorld();
 	}
 

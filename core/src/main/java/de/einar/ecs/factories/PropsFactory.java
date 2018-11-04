@@ -21,9 +21,11 @@ public class PropsFactory {
 
 	@InjectAsset("textures/granny_dead.png")
 	private static Texture deadGrannyTexture;
+	@InjectAsset("textures/granny_dead2.png")
+	private static Texture deadGranny2Texture;
 	@InjectAsset("textures/background.png")
 	private static Texture background1Texture;
-	@InjectAsset("textures/background.png")
+	@InjectAsset("textures/background2.png")
 	private static Texture background2Texture;
 
 	private PropsFactory() {
@@ -55,8 +57,9 @@ public class PropsFactory {
 
 	public static void createDeadGranny(com.artemis.World ecsWorld,
 			com.badlogic.gdx.physics.box2d.World physicsWorld, Vector2 pos,
-			Vector2 vel) {
-		createDeadGranny(ecsWorld, physicsWorld, pos, vel, deadGrannyTexture);
+			Vector2 vel, int type) {
+		createDeadGranny(ecsWorld, physicsWorld, pos, vel,
+				type == 1 ? deadGrannyTexture : deadGranny2Texture);
 	}
 
 	public static Entity createDeadGranny(com.artemis.World ecsWorld,

@@ -12,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.google.common.eventbus.EventBus;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
+import de.damios.gamedev.misc.RandomUtils;
 import de.einar.collisions.CarPhysicsListener;
 import de.einar.collisions.CollisionListener;
 import de.einar.collisions.GrannyPhysicsListener;
@@ -30,6 +31,8 @@ public class EnemyFactory {
 	private static Texture carAnimationTexture;
 	@InjectAsset("textures/granny.png")
 	private static Texture grannyTexture;
+	@InjectAsset("textures/granny2.png")
+	private static Texture granny2Texture;
 
 	private EnemyFactory() {
 		// not used
@@ -38,7 +41,7 @@ public class EnemyFactory {
 	private static void createEnemy(com.artemis.World ecsWorld,
 			com.badlogic.gdx.physics.box2d.World physicsWorld,
 			SpriteComponent spriteComp, Shape shape, short cat, short mask,
-			int speed, int posX, int posY, CollisionListener collListener) {
+			int speed, int posX, int posY, CollisionListener collListener, int type) {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
@@ -59,14 +62,13 @@ public class EnemyFactory {
 
 		shape.dispose();
 
-		// TEXTURE
-
 		// ENEMY
 		EnemyComponent enemyComp = new EnemyComponent();
 		if (speed == GameSession.worldSpeed)
 			enemyComp.setStarted(true);
 		else
 			enemyComp.setSpeed(-speed);
+		enemyComp.type = type;
 
 		// Add components
 		e.edit().add(phyComp).add(enemyComp).add(new LerpComponent())
@@ -88,18 +90,21 @@ public class EnemyFactory {
 						carAnimationTexture.getHeight() / 2 - 20));
 
 		createEnemy(ecsWorld, physicsWorld, comp, shape, Category.CAR, Mask.CAR,
-				speed, posX, 204, new CarPhysicsListener(bus));
+				speed, posX, 204, new CarPhysicsListener(bus), 1);
 	}
 
 	public static void createGrandma(com.artemis.World ecsWorld,
 			com.badlogic.gdx.physics.box2d.World physicsWorld, int posX,
 			int speed, EventBus bus) {
+		
+		int type = RandomUtils.getRandomNumber(1, 2);
+		
 		CircleShape shape = new CircleShape();
 		shape.setRadius(PositionConverter.toPhysicUnits(120) / 2);
 		createEnemy(ecsWorld, physicsWorld,
-				new SpriteComponent(grannyTexture, 0, 0), shape,
+				new SpriteComponent(type == 1 ? grannyTexture : granny2Texture, 0, 0), shape,
 				Category.GRANNY, Mask.GRANNY, speed, posX, 216,
-				new GrannyPhysicsListener(bus));
+				new GrannyPhysicsListener(bus), type);
 	}
 
 }

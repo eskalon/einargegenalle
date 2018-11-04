@@ -25,9 +25,8 @@ public class WinSystem extends IntervalSystem {
 
 	@Override
 	protected void processSystem() {
-		if (!notified
-				&& PositionConverter.toPixels(bounds.getPosition()).x < (-1280
-						* (GameSession.worldLenght - 0.01))) {
+		if (!notified && PositionConverter
+				.toPixels(bounds.getPosition()).x < (-17420)) {
 			notified = true;
 			bus.post(new PlayerWinEvent());
 		}

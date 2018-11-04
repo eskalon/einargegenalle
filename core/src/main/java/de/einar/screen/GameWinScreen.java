@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Timer;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 
@@ -17,6 +19,9 @@ import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 public class GameWinScreen extends BaseUIScreen {
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
+
+	@InjectAsset("ui/phone/phone_charging.png")
+	private Texture chargingTexture;
 
 	@InjectAsset("ui/phone/option1/option1_5a.png")
 	private Texture endOption1;
@@ -35,10 +40,11 @@ public class GameWinScreen extends BaseUIScreen {
 	@InjectAsset("ui/phone/option4/option4_5b.png")
 	private Texture endOption8;
 
+	private Texture image = null;
+
 	@Override
 	protected void initUI() {
 		backgroundColor = new Color(0.141f, 0.141f, 0.141f, 1f);
-		Texture image = null;
 
 		switch (game.chosenChatOption) {
 		case 1: {
@@ -76,20 +82,29 @@ public class GameWinScreen extends BaseUIScreen {
 		}
 
 		ImageButton endButton = new ImageButton(
-				new TextureRegionDrawable(new TextureRegion(image)),
-				new TextureRegionDrawable(new TextureRegion(image)));
-		endButton.addListener(new InputListener() {
+				new TextureRegionDrawable(new TextureRegion(chargingTexture)),
+				new TextureRegionDrawable(new TextureRegion(chargingTexture)));
+
+		Timer.instance().scheduleTask(new Timer.Task() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y,
-					int pointer, int button) {
-				clickSound.play(1F);
-				game.pushScreen("mainMenu");
-				return true;
+			public void run() {
+				endButton.setStyle(new ImageButtonStyle(null, null, null,
+						new TextureRegionDrawable(new TextureRegion(image)),
+						new TextureRegionDrawable(new TextureRegion(image)),
+						null));
+				endButton.addListener(new InputListener() {
+					@Override
+					public boolean touchDown(InputEvent event, float x, float y,
+							int pointer, int button) {
+						clickSound.play(1F);
+						game.pushScreen("mainMenu");
+						return true;
+					}
+				});
 			}
-		});
+		}, 2.25F);
 
 		mainTable.add(endButton).padBottom(5);
-
 	}
 
 }
