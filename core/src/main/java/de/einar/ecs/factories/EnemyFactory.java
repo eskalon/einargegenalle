@@ -35,9 +35,10 @@ public class EnemyFactory {
 		// not used
 	}
 
-	private static void createEnemy(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			SpriteComponent spriteComp, Shape shape, short cat, short mask, int speed, int posX, int posY,
-			CollisionListener collListener) {
+	private static void createEnemy(com.artemis.World ecsWorld,
+			com.badlogic.gdx.physics.box2d.World physicsWorld,
+			SpriteComponent spriteComp, Shape shape, short cat, short mask,
+			int speed, int posX, int posY, CollisionListener collListener) {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
@@ -49,9 +50,10 @@ public class EnemyFactory {
 		fixtureDef.filter.maskBits = mask;
 		fixtureDef.isSensor = true;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, posX, posY, null, e, false,
-				fixtureDef);
-		body.setLinearVelocity(PositionConverter.toPhysicUnits(new Vector2(-GameSession.worldSpeed, 0)));
+		Body body = PhysicsComponent.createBody(physicsWorld,
+				BodyType.DynamicBody, posX, posY, null, e, false, fixtureDef);
+		body.setLinearVelocity(PositionConverter
+				.toPhysicUnits(new Vector2(-GameSession.worldSpeed, 0)));
 
 		PhysicsComponent phyComp = new PhysicsComponent(body, collListener);
 
@@ -67,28 +69,37 @@ public class EnemyFactory {
 			enemyComp.setSpeed(-speed);
 
 		// Add components
-		e.edit().add(phyComp).add(enemyComp).add(new LerpComponent()).add(spriteComp);
+		e.edit().add(phyComp).add(enemyComp).add(new LerpComponent())
+				.add(spriteComp);
 	}
 
-	public static void createCar(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			int posX, int speed, EventBus bus) {
-		SpriteComponent comp = new SpriteComponent(carAnimationTexture, 0.025f, 1, 6, 0, 0,
-				(-carAnimationTexture.getWidth() / 6 / 2), (-carAnimationTexture.getHeight() / 2 + 1));
+	public static void createCar(com.artemis.World ecsWorld,
+			com.badlogic.gdx.physics.box2d.World physicsWorld, int posX,
+			int speed, EventBus bus) {
+		SpriteComponent comp = new SpriteComponent(carAnimationTexture, 0.025f,
+				1, 6, 0, 0, (-carAnimationTexture.getWidth() / 6 / 2),
+				(-carAnimationTexture.getHeight() / 2 + 1));
 
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(PositionConverter.toPhysicUnits(carAnimationTexture.getWidth() / 6 / 2 - 26),
-				PositionConverter.toPhysicUnits(carAnimationTexture.getHeight() / 2 - 20));
+		shape.setAsBox(
+				PositionConverter.toPhysicUnits(
+						carAnimationTexture.getWidth() / 6 / 2 - 26),
+				PositionConverter.toPhysicUnits(
+						carAnimationTexture.getHeight() / 2 - 20));
 
-		createEnemy(ecsWorld, physicsWorld, comp, shape, Category.CAR, Mask.CAR, speed, posX, 204,
-				new CarPhysicsListener(bus));
+		createEnemy(ecsWorld, physicsWorld, comp, shape, Category.CAR, Mask.CAR,
+				speed, posX, 204, new CarPhysicsListener(bus));
 	}
 
-	public static void createGrandma(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			int posX, int speed, EventBus bus) {
+	public static void createGrandma(com.artemis.World ecsWorld,
+			com.badlogic.gdx.physics.box2d.World physicsWorld, int posX,
+			int speed, EventBus bus) {
 		CircleShape shape = new CircleShape();
 		shape.setRadius(PositionConverter.toPhysicUnits(120) / 2);
-		createEnemy(ecsWorld, physicsWorld, new SpriteComponent(grannyTexture, 0, 0), shape, Category.GRANNY,
-				Mask.GRANNY, speed, posX, 216, new GrannyPhysicsListener(bus));
+		createEnemy(ecsWorld, physicsWorld,
+				new SpriteComponent(grannyTexture, 0, 0), shape,
+				Category.GRANNY, Mask.GRANNY, speed, posX, 216,
+				new GrannyPhysicsListener(bus));
 	}
 
 }

@@ -30,8 +30,10 @@ public class ObstacleBlock {
 	}
 
 	public ObstacleBlock gerenateNextObstacleBlock() {
-		float distance = (float) ((Obstacle.REFERENCE) * (0.8F + Math.random())) + obstacle.calculateSafeJumpDistance();
-		Vector2 newLeftBottom = new Vector2(this.endX + distance, this.obstacle.leftBottom.y);
+		float distance = (float) ((Obstacle.REFERENCE) * (0.8F + Math.random()))
+				+ obstacle.calculateSafeJumpDistance();
+		Vector2 newLeftBottom = new Vector2(this.endX + distance,
+				this.obstacle.leftBottom.y);
 		ObstacleBlock next = new ObstacleBlock(new Grandma(newLeftBottom));
 		return next;
 	}

@@ -4,6 +4,7 @@ import com.artemis.Component;
 
 public class EnemyComponent extends Component {
 
+	public int type;
 	private int speed;
 	private boolean started = false;
 

@@ -1,18 +1,19 @@
 package de.einar.screen;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Timer;
 
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * This screen represents the story intro of the game.
@@ -25,6 +26,8 @@ public class GameIntroScreen extends BaseUIScreen {
 
 	@InjectAsset("ui/phone/phone_neutral.png")
 	private Texture startPhoneTexture;
+	@InjectAsset("ui/phone/phone_dead.png")
+	private Texture deadPhoneTexture;
 
 	// OPTION 1:
 	@InjectAsset("ui/phone/option1/option1_1.png")
@@ -106,64 +109,80 @@ public class GameIntroScreen extends BaseUIScreen {
 
 	@Override
 	protected void initUI() {
-
-		Image logoImage = new Image(startPhoneTexture);
+		Table sideTable = new Table();
+		backgroundColor = new Color(0.141f, 0.141f, 0.141f, 1f);
+		Image phoneImage = new Image(startPhoneTexture);
 
 		ImageButton sendFirstMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		ImageButton sendSecondMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		ImageButton sendThirdMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		ImageButton sendFourthMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 
-		//Buttons after option 1
+		// Buttons after option 1
 		ImageButton option1aMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		ImageButton option1bMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 
-		//Buttons after option 2
+		// Buttons after option 2
 		ImageButton option2aMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		ImageButton option2bMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 
-		//Buttons after option 3
+		// Buttons after option 3
 		ImageButton option3aMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		ImageButton option3bMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 
-		//Buttons after option 4
+		// Buttons after option 4
 		ImageButton option4aMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		ImageButton option4bMessageButton = new ImageButton(
 				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
-
-
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 
 		// OPTION 1
 		sendFirstMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option1_1PhoneTexture)));
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option1_1PhoneTexture)));
+				sendFirstMessageButton.setTouchable(Touchable.disabled);
+				sendSecondMessageButton.setTouchable(Touchable.disabled);
+				sendThirdMessageButton.setTouchable(Touchable.disabled);
+				sendFourthMessageButton.setTouchable(Touchable.disabled);
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -171,14 +190,11 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option1_2PhoneTexture)));
-						mainTable.clear();
-						mainTable.add(logoImage).padBottom(5);
-						mainTable.add(option1aMessageButton).padLeft(50);
-						mainTable.add(option1bMessageButton).padLeft(50);
-
-						//game.pushScreen("game");
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option1_2PhoneTexture)));
+						sideTable.clear();
+						sideTable.add(option1aMessageButton).padLeft(50).row();
+						sideTable.add(option1bMessageButton).padLeft(50);
 					}
 				}, 2.5F);
 
@@ -189,11 +205,14 @@ public class GameIntroScreen extends BaseUIScreen {
 		// OPTION 1A
 		option1aMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option1_3aPhoneTexture)));
+				option1aMessageButton.setTouchable(Touchable.disabled);
+				option1bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option1_3aPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -201,18 +220,25 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option1_4aPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 1;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option1_4aPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
@@ -221,11 +247,14 @@ public class GameIntroScreen extends BaseUIScreen {
 		// OPTION 1B
 		option1bMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option1_3bPhoneTexture)));
+				option1aMessageButton.setTouchable(Touchable.disabled);
+				option1bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option1_3bPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -233,32 +262,43 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option1_4bPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 2;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option1_4bPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
 		});
 
-
 		// OPTION 2
 		sendSecondMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option2_1PhoneTexture)));
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option2_1PhoneTexture)));
+				sendFirstMessageButton.setTouchable(Touchable.disabled);
+				sendSecondMessageButton.setTouchable(Touchable.disabled);
+				sendThirdMessageButton.setTouchable(Touchable.disabled);
+				sendFourthMessageButton.setTouchable(Touchable.disabled);
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -266,15 +306,11 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option2_2PhoneTexture)));
-						mainTable.clear();
-						mainTable.add(logoImage).padBottom(5);
-						mainTable.add(option2aMessageButton).padLeft(50);
-						mainTable.add(option2bMessageButton).padLeft(50);
-
-
-						//game.pushScreen("game");
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option2_2PhoneTexture)));
+						sideTable.clear();
+						sideTable.add(option2aMessageButton).padLeft(50).row();
+						sideTable.add(option2bMessageButton).padLeft(50);
 					}
 				}, 2.5F);
 
@@ -285,11 +321,14 @@ public class GameIntroScreen extends BaseUIScreen {
 		// OPTION 2A
 		option2aMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option2_3aPhoneTexture)));
+				option2aMessageButton.setTouchable(Touchable.disabled);
+				option2bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option2_3aPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -297,18 +336,25 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option2_4aPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 3;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option2_4aPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
@@ -317,11 +363,14 @@ public class GameIntroScreen extends BaseUIScreen {
 		// OPTION 2B
 		option2bMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option2_3bPhoneTexture)));
+				option2aMessageButton.setTouchable(Touchable.disabled);
+				option2bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option2_3bPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -329,18 +378,25 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option2_4bPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 4;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option2_4bPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
@@ -349,11 +405,16 @@ public class GameIntroScreen extends BaseUIScreen {
 		// OPTION 3
 		sendThirdMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option3_1PhoneTexture)));
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option3_1PhoneTexture)));
+				sendFirstMessageButton.setTouchable(Touchable.disabled);
+				sendSecondMessageButton.setTouchable(Touchable.disabled);
+				sendThirdMessageButton.setTouchable(Touchable.disabled);
+				sendFourthMessageButton.setTouchable(Touchable.disabled);
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -361,14 +422,11 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option3_2PhoneTexture)));
-						mainTable.clear();
-						mainTable.add(logoImage).padBottom(5);
-						mainTable.add(option3aMessageButton).padLeft(50);
-						mainTable.add(option3bMessageButton).padLeft(50);
-
-						//game.pushScreen("game");
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option3_2PhoneTexture)));
+						sideTable.clear();
+						sideTable.add(option3aMessageButton).padLeft(50).row();
+						sideTable.add(option3bMessageButton).padLeft(50);
 					}
 				}, 2.5F);
 
@@ -376,14 +434,17 @@ public class GameIntroScreen extends BaseUIScreen {
 			}
 		});
 
-		//OPTION 3A
+		// OPTION 3A
 		option3aMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option3_3aPhoneTexture)));
+				option3aMessageButton.setTouchable(Touchable.disabled);
+				option3bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option3_3aPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -391,31 +452,41 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option3_4aPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 5;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option3_4aPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
 		});
 
-		//OPTION 3B
+		// OPTION 3B
 		option3bMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option3_3bPhoneTexture)));
+				option3aMessageButton.setTouchable(Touchable.disabled);
+				option3bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option3_3bPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -423,33 +494,43 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option3_4bPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 6;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option3_4bPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
 		});
-
 
 		// OPTION 4
 		sendFourthMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option4_1PhoneTexture)));
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option4_1PhoneTexture)));
+				sendFirstMessageButton.setTouchable(Touchable.disabled);
+				sendSecondMessageButton.setTouchable(Touchable.disabled);
+				sendThirdMessageButton.setTouchable(Touchable.disabled);
+				sendFourthMessageButton.setTouchable(Touchable.disabled);
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -457,15 +538,11 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option4_2PhoneTexture)));
-						mainTable.clear();
-						mainTable.add(logoImage).padBottom(5);
-						mainTable.add(option4aMessageButton).padLeft(50);
-						mainTable.add(option4bMessageButton).padLeft(50);
-
-
-						//game.pushScreen("game");
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option4_2PhoneTexture)));
+						sideTable.clear();
+						sideTable.add(option4aMessageButton).padLeft(50).row();
+						sideTable.add(option4bMessageButton).padLeft(50);
 					}
 				}, 2.5F);
 
@@ -476,11 +553,14 @@ public class GameIntroScreen extends BaseUIScreen {
 		// OPTION 4A
 		option4aMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option4_3aPhoneTexture)));
+				option4aMessageButton.setTouchable(Touchable.disabled);
+				option4bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option4_3aPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -488,18 +568,25 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option4_4aPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 7;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option4_4aPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				},3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
@@ -508,11 +595,14 @@ public class GameIntroScreen extends BaseUIScreen {
 		// OPTION 4B
 		option4bMessageButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
-				// TODO angezeigtes Bild entsprechend ändern & Buttons deaktivieren
-				logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option4_3bPhoneTexture)));
+				option4aMessageButton.setTouchable(Touchable.disabled);
+				option4bMessageButton.setTouchable(Touchable.disabled);
+				phoneImage.setDrawable(new TextureRegionDrawable(
+						new TextureRegion(option4_3bPhoneTexture)));
 
 				// Antwort kommt wenige Sekunden später
 				Timer.instance().scheduleTask(new Timer.Task() {
@@ -520,29 +610,36 @@ public class GameIntroScreen extends BaseUIScreen {
 					public void run() {
 						receivedSound.play(1F);
 
-						// TODO angezeigtes Bild entsprechend ändern & Buttons anpassen
-						logoImage.setDrawable(new TextureRegionDrawable(new TextureRegion(option4_4bPhoneTexture)));
-						//game.pushScreen("game");
+						game.chosenChatOption = 8;
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(option4_4bPhoneTexture)));
 					}
 				}, 1F);
+				Timer.instance().scheduleTask(new Timer.Task() {
+					@Override
+					public void run() {
+						phoneImage.setDrawable(new TextureRegionDrawable(
+								new TextureRegion(deadPhoneTexture)));
+					}
+				}, 3.25F);
 				Timer.instance().scheduleTask(new Timer.Task() {
 					@Override
 					public void run() {
 						// START GAME
 						game.pushScreen("game");
 					}
-				}, 3.5F);
+				}, 5.75F);
 
 				return true;
 			}
 		});
 
-
-		mainTable.add(logoImage).padBottom(5);
-		mainTable.add(sendFirstMessageButton).padLeft(50).row();
-		mainTable.add(sendSecondMessageButton).padLeft(50).row();
-		mainTable.add(sendThirdMessageButton).padLeft(50).row();
-		mainTable.add(sendFourthMessageButton).padLeft(50).row();
+		mainTable.add(phoneImage).padBottom(5);
+		sideTable.add(sendFirstMessageButton).padLeft(50).row();
+		sideTable.add(sendSecondMessageButton).padLeft(50).row();
+		sideTable.add(sendThirdMessageButton).padLeft(50).row();
+		sideTable.add(sendFourthMessageButton).padLeft(50);
+		mainTable.add(sideTable);
 	}
 
 }

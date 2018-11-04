@@ -43,17 +43,21 @@ public class SpriteComponent extends Component {
 	}
 
 	public SpriteComponent(Texture texture, int posX, int posY) {
-		this(texture, posX, posY, texture == null ? 0 : (-texture.getWidth() / 2),
+		this(texture, posX, posY,
+				texture == null ? 0 : (-texture.getWidth() / 2),
 				texture == null ? 0 : (-texture.getHeight() / 2));
 	}
 
-	public SpriteComponent(Texture textureSheet, float frameDuration, int rows, int cols, int posX, int posY,
-			float paddingLeft, float paddingBottom) {
+	public SpriteComponent(Texture textureSheet, float frameDuration, int rows,
+			int cols, int posX, int posY, float paddingLeft,
+			float paddingBottom) {
 		Preconditions.checkNotNull(textureSheet, "texture cannot be null.");
-		Preconditions.checkArgument(textureSheet.isManaged(), "texture isn't loaded.");
+		Preconditions.checkArgument(textureSheet.isManaged(),
+				"texture isn't loaded.");
 
 		// Create frames out of texture sheet
-		TextureRegion[][] tmp = TextureRegion.split(textureSheet, textureSheet.getWidth() / cols,
+		TextureRegion[][] tmp = TextureRegion.split(textureSheet,
+				textureSheet.getWidth() / cols,
 				textureSheet.getHeight() / rows);
 		TextureRegion[] frames = new TextureRegion[cols * rows];
 		int index = 0;
@@ -71,9 +75,11 @@ public class SpriteComponent extends Component {
 		this.posY = posY;
 	}
 
-	public SpriteComponent(Texture texture, int posX, int posY, float paddingLeft, float paddingBottom) {
+	public SpriteComponent(Texture texture, int posX, int posY,
+			float paddingLeft, float paddingBottom) {
 		Preconditions.checkNotNull(texture, "texture cannot be null.");
-		Preconditions.checkArgument(texture.isManaged(), "texture isn't loaded.");
+		Preconditions.checkArgument(texture.isManaged(),
+				"texture isn't loaded.");
 
 		this.texture = texture;
 		this.paddingLeft = paddingBottom;

@@ -25,12 +25,14 @@ public class PlayerFactory {
 		// not used
 	}
 
-	public static Entity createPlayer(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld) {
+	public static Entity createPlayer(com.artemis.World ecsWorld,
+			com.badlogic.gdx.physics.box2d.World physicsWorld) {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
 		CircleShape shape = new CircleShape();
-		shape.setRadius(PositionConverter.toPhysicUnits(playerAnimationTexture.getHeight() + 2) / 2);
+		shape.setRadius(PositionConverter
+				.toPhysicUnits(playerAnimationTexture.getHeight() + 2) / 2);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1f;
@@ -38,22 +40,25 @@ public class PlayerFactory {
 		fixtureDef.filter.categoryBits = Category.PLAYER;
 		fixtureDef.filter.maskBits = Mask.PLAYER;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 150, 200, null, e, true,
-				fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld,
+				BodyType.DynamicBody, 150, 200, null, e, true, fixtureDef);
 
 		PhysicsComponent phyComp = new PhysicsComponent(body);
 
 		shape.dispose();
 		// TEXTURE
-		SpriteComponent spriteComp = new SpriteComponent(playerAnimationTexture, (1f / 9f), 1, 8, 0, 0,
-				(-playerAnimationTexture.getWidth() / 8 / 2), (-playerAnimationTexture.getHeight() / 2));
+		SpriteComponent spriteComp = new SpriteComponent(playerAnimationTexture,
+				(1f / 9f), 1, 8, 0, 0,
+				(-playerAnimationTexture.getWidth() / 8 / 2),
+				(-playerAnimationTexture.getHeight() / 2));
 		spriteComp.setLayer(2);
 
 		// PLAYER
 		PlayerComponent playerComp = new PlayerComponent();
 
 		// Add components
-		e.edit().add(phyComp).add(new LerpComponent()).add(playerComp).add(spriteComp);
+		e.edit().add(phyComp).add(new LerpComponent()).add(playerComp)
+				.add(spriteComp);
 
 		return e;
 	}

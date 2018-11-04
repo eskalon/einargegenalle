@@ -39,22 +39,28 @@ public class MainMenuScreen extends BaseUIScreen {
 	protected void initUI() {
 		super.backgroundTexture = backgroundImage;
 
-		ImageButton startGameButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(startButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(startButtonDownImage)));
+		ImageButton startGameButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(startButtonImage)),
+				new TextureRegionDrawable(
+						new TextureRegion(startButtonDownImage)));
 		startGameButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 				game.pushScreen("game-intro");
 				return true;
 			}
 		});
 
-		ImageButton exitButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(quitButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(quitButtonDownImage)));
+		ImageButton exitButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(quitButtonImage)),
+				new TextureRegionDrawable(
+						new TextureRegion(quitButtonDownImage)));
 		exitButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 
 				Gdx.app.exit();
@@ -62,10 +68,13 @@ public class MainMenuScreen extends BaseUIScreen {
 			}
 		});
 
-		ImageButton githubRepoButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(githubLogoTexture)));
+		ImageButton githubRepoButton = new ImageButton(
+				new TextureRegionDrawable(
+						new TextureRegion(githubLogoTexture)));
 		githubRepoButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				Gdx.net.openURI("https://github.com/eskalon/einargegenalle");
 				return true;
 			}

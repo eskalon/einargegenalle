@@ -47,15 +47,14 @@ public class GameSession {
 	private PhysicsSystem physicsSystem;
 	private BackgroundMovementSystem worldMovementSystem;
 
-	public int chosenChatOption = 0;
-
 	/**
 	 * Creates a new game session.
 	 * 
 	 * @param inputListener
 	 */
-	public GameSession(GameInputProcessor inputListener, SpriteBatch batch, OrthographicCamera gameCamera,
-			OrthographicCamera debugCamera, EventBus bus) {
+	public GameSession(GameInputProcessor inputListener, SpriteBatch batch,
+			OrthographicCamera gameCamera, OrthographicCamera debugCamera,
+			EventBus bus) {
 		WinSystem winS = new WinSystem(bus);
 
 		// PHYSICS
@@ -66,20 +65,25 @@ public class GameSession {
 
 		// ECS
 		spriteRenderSystem = new SpriteRenderSystem(gameCamera, batch);
-		debugRenderSystem = new DebugPhysicsRenderSystem(gameCamera, debugCamera, physicsWorld);
+		debugRenderSystem = new DebugPhysicsRenderSystem(gameCamera,
+				debugCamera, physicsWorld);
 		worldMovementSystem = new BackgroundMovementSystem();
 		EnemyInitSystem initS = new EnemyInitSystem(bus);
 		physicsSystem = new PhysicsSystem(physicsWorld);
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				/* Render */
-				.withPassive(1, spriteRenderSystem)/*.withPassive(1, debugRenderSystem)*/
+				.withPassive(1, spriteRenderSystem)/*
+													 * .withPassive(1,
+													 * debugRenderSystem)
+													 */
 				/* Physics */
-				.with(new EntityPhysicsHandlerSystem(physicsWorld)).with(physicsSystem)
-				.with(new RenderPositionUpdateSystem())
+				.with(new EntityPhysicsHandlerSystem(physicsWorld))
+				.with(physicsSystem).with(new RenderPositionUpdateSystem())
 				/* Win */
 				.with(winS)
 				/* Misc */
-				.with(new InputProcessingSystem(inputListener)).with(initS).with(worldMovementSystem).build();
+				.with(new InputProcessingSystem(inputListener)).with(initS)
+				.with(worldMovementSystem).build();
 		this.entityWorld = new com.artemis.World(config);
 
 		// Generate world
@@ -129,7 +133,8 @@ public class GameSession {
 	@Subscribe
 	public void onGrannyContactEvent(GrannyContatcEvent ev) {
 		PhysicsComponent comp = ev.granny.getComponent(PhysicsComponent.class);
-		PropsFactory.createDeadGranny(entityWorld, physicsWorld, comp.getPos(), comp.getVel());
+		PropsFactory.createDeadGranny(entityWorld, physicsWorld, comp.getPos(),
+				comp.getVel());
 		ev.granny.deleteFromWorld();
 	}
 

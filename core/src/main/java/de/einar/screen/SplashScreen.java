@@ -40,7 +40,8 @@ public class SplashScreen extends BaseScreen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g,
+				backgroundColor.b, backgroundColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		game.getSpriteBatch().begin();
 		game.getSpriteBatch().setProjectionMatrix(game.getUICamera().combined);
@@ -51,7 +52,8 @@ public class SplashScreen extends BaseScreen {
 			this.startTime = System.currentTimeMillis();
 		}
 
-		if (game.getAssetManager().update() && (startTime + duration) < System.currentTimeMillis()) {
+		if (game.getAssetManager().update()
+				&& (startTime + duration) < System.currentTimeMillis()) {
 			onFinishedLoading();
 		}
 

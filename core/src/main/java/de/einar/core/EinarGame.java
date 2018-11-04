@@ -54,8 +54,9 @@ public class EinarGame extends ScreenGame {
 	private BasicInputMultiplexer inputProcessor;
 
 	private Skin uiSkin;
-	
+
 	public GameSession session;
+	public int chosenChatOption = 0;
 
 	/**
 	 * Event bus. All events are queued first and then taken care of in the
@@ -83,9 +84,12 @@ public class EinarGame extends ScreenGame {
 
 		// Initialize asset manager
 		FileHandleResolver resolver = new InternalFileHandleResolver();
-		this.assetManager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
-		this.assetManager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
-		this.assetManager.setLoader(JSON.class, new JSONLoader(new InternalFileHandleResolver()));
+		this.assetManager.setLoader(FreeTypeFontGenerator.class,
+				new FreeTypeFontGeneratorLoader(resolver));
+		this.assetManager.setLoader(BitmapFont.class, ".ttf",
+				new FreetypeFontLoader(resolver));
+		this.assetManager.setLoader(JSON.class,
+				new JSONLoader(new InternalFileHandleResolver()));
 
 		this.viewportWidth = Gdx.graphics.getWidth();
 		this.viewportHeight = Gdx.graphics.getHeight();
@@ -100,11 +104,13 @@ public class EinarGame extends ScreenGame {
 		// this.camera.update();
 		this.batch.setProjectionMatrix(this.gameCamera.combined);
 
-		this.debugCamera = new OrthographicCamera(viewportWidth, viewportHeight);
+		this.debugCamera = new OrthographicCamera(viewportWidth,
+				viewportHeight);
 		this.debugCamera.translate(viewportWidth / 2, viewportHeight / 2, 0);
 
 		// Load game settings
-		this.settings = new GameSettings(NAME.trim().replace(" ", "-").toLowerCase());
+		this.settings = new GameSettings(
+				NAME.trim().replace(" ", "-").toLowerCase());
 
 		// Create the input multiplexer
 		this.inputProcessor = new BasicInputMultiplexer();
@@ -176,8 +182,8 @@ public class EinarGame extends ScreenGame {
 	}
 
 	/**
-	 * @return the events bus. See {@link EventQueueBus}. Events are processed in
-	 *         the rendering thread.
+	 * @return the events bus. See {@link EventQueueBus}. Events are processed
+	 *         in the rendering thread.
 	 */
 	public EventQueueBus getEventBus() {
 		return eventBus;

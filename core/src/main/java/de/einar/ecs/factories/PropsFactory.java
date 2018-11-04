@@ -30,11 +30,13 @@ public class PropsFactory {
 		// not used
 	}
 
-	public static void createBackground(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld) {
+	public static void createBackground(com.artemis.World ecsWorld,
+			com.badlogic.gdx.physics.box2d.World physicsWorld) {
 		Entity e = ecsWorld.createEntity();
 
 		// TEXTURE
-		SpriteComponent spriteComp = new SpriteComponent(background1Texture, 0, 0, 0, 0);
+		SpriteComponent spriteComp = new SpriteComponent(background1Texture, 0,
+				0, 0, 0);
 		spriteComp.setLayer(-1);
 
 		// Add components
@@ -43,20 +45,23 @@ public class PropsFactory {
 		Entity e2 = ecsWorld.createEntity();
 
 		// TEXTURE
-		SpriteComponent spriteComp2 = new SpriteComponent(background2Texture, background1Texture.getWidth(), 0, 0, 0);
+		SpriteComponent spriteComp2 = new SpriteComponent(background2Texture,
+				background1Texture.getWidth(), 0, 0, 0);
 		spriteComp2.setLayer(-1);
 
 		// Add components
 		e2.edit().add(new BackgroundComponent()).add(spriteComp2);
 	}
 
-	public static void createDeadGranny(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			Vector2 pos, Vector2 vel) {
+	public static void createDeadGranny(com.artemis.World ecsWorld,
+			com.badlogic.gdx.physics.box2d.World physicsWorld, Vector2 pos,
+			Vector2 vel) {
 		createDeadGranny(ecsWorld, physicsWorld, pos, vel, deadGrannyTexture);
 	}
 
-	public static Entity createDeadGranny(com.artemis.World ecsWorld, com.badlogic.gdx.physics.box2d.World physicsWorld,
-			Vector2 pos, Vector2 vel, Texture texture) {
+	public static Entity createDeadGranny(com.artemis.World ecsWorld,
+			com.badlogic.gdx.physics.box2d.World physicsWorld, Vector2 pos,
+			Vector2 vel, Texture texture) {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
@@ -71,7 +76,8 @@ public class PropsFactory {
 		fixtureDef.filter.maskBits = Mask.PROPS;
 
 		pos = PositionConverter.toPixels(pos);
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, (int) pos.x, (int) pos.y,
+		Body body = PhysicsComponent.createBody(physicsWorld,
+				BodyType.DynamicBody, (int) pos.x, (int) pos.y,
 				PositionConverter.toPixels(vel), e, true, fixtureDef);
 
 		PhysicsComponent phyComp = new PhysicsComponent(body);

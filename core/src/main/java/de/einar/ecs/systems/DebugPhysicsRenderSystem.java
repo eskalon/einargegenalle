@@ -18,7 +18,8 @@ public class DebugPhysicsRenderSystem extends BaseEntitySystem {
 	private OrthographicCamera gameCamera;
 	private OrthographicCamera debugCamera;
 
-	public DebugPhysicsRenderSystem(OrthographicCamera gameCamera, OrthographicCamera debugCamera, World physicsWorld) {
+	public DebugPhysicsRenderSystem(OrthographicCamera gameCamera,
+			OrthographicCamera debugCamera, World physicsWorld) {
 		super(Aspect.exclude());
 		this.gameCamera = gameCamera;
 		this.debugCamera = debugCamera;
@@ -36,7 +37,8 @@ public class DebugPhysicsRenderSystem extends BaseEntitySystem {
 		debugCamera.position.set(gameCamera.position);
 		debugCamera.update();
 
-		debugRenderer.render(physicsWorld, debugCamera.combined.scl(PositionConverter.PIX_TO_PHY_FACTOR));
+		debugRenderer.render(physicsWorld,
+				debugCamera.combined.scl(PositionConverter.PIX_TO_PHY_FACTOR));
 	}
 
 }

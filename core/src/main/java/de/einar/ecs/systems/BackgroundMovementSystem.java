@@ -27,7 +27,8 @@ public class BackgroundMovementSystem extends IteratingSystem {
 	protected void process(int id) {
 		SpriteComponent spriteComponent = spriteMapper.get(id);
 
-		spriteComponent.setPosX(spriteComponent.getPosX() - (int) (world.delta * GameSession.backgroundSpeed));
+		spriteComponent.setPosX(spriteComponent.getPosX()
+				- (int) (world.delta * GameSession.backgroundSpeed));
 		// spriteComponent.setPosY(spriteComponent.getPosY());
 	}
 }

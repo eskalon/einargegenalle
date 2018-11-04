@@ -30,13 +30,15 @@ public class PhysicsComponent extends Component {
 		this.collisionListener = collisionListener;
 	}
 
-	public static Body createBody(World physicsWorld, BodyType bt, int posX, int posY, Vector2 velocity, Entity e,
-			boolean gravityEnabled, FixtureDef... defs) {
+	public static Body createBody(World physicsWorld, BodyType bt, int posX,
+			int posY, Vector2 velocity, Entity e, boolean gravityEnabled,
+			FixtureDef... defs) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = bt;
 		if (!gravityEnabled)
 			bodyDef.gravityScale = 0;
-		bodyDef.position.set(PositionConverter.toPhysicUnits(posX), PositionConverter.toPhysicUnits(posY));
+		bodyDef.position.set(PositionConverter.toPhysicUnits(posX),
+				PositionConverter.toPhysicUnits(posY));
 		Body body = physicsWorld.createBody(bodyDef);
 		body.setUserData(e);
 
@@ -129,10 +131,14 @@ public class PhysicsComponent extends Component {
 
 	public static class Mask {
 		public static final short BOUNDARY = (short) 0xFFFF;
-		public static final short PLAYER = Category.BOUNDARY | Category.CAR | Category.GRANNY | Category.POERWRUP;
-		public static final short CAR = Category.BOUNDARY | Category.PLAYER /*| Category.GRANNY*/;
-		public static final short GRANNY = Category.BOUNDARY | Category.PLAYER /*| Category.CAR*/;
-		public static final short POERWRUP = Category.BOUNDARY | Category.PLAYER;
+		public static final short PLAYER = Category.BOUNDARY | Category.CAR
+				| Category.GRANNY | Category.POERWRUP;
+		public static final short CAR = Category.BOUNDARY
+				| Category.PLAYER /* | Category.GRANNY */;
+		public static final short GRANNY = Category.BOUNDARY
+				| Category.PLAYER /* | Category.CAR */;
+		public static final short POERWRUP = Category.BOUNDARY
+				| Category.PLAYER;
 		public static final short PROPS = Category.BOUNDARY;
 
 	}

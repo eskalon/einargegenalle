@@ -40,7 +40,7 @@ public class GameWinScreen extends BaseUIScreen {
 		backgroundColor = new Color(0.141f, 0.141f, 0.141f, 1f);
 		Texture image = null;
 
-		switch (game.session.chosenChatOption) {
+		switch (game.chosenChatOption) {
 		case 1: {
 			image = (endOption1);
 			break;

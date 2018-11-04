@@ -23,7 +23,8 @@ public class SpriteRenderSystem extends EntitySystem {
 	private List<SpriteComponent> sortedSprites;
 	private SpriteBatch batch;
 
-	public SpriteRenderSystem(OrthographicCamera gameCamera, SpriteBatch batch) {
+	public SpriteRenderSystem(OrthographicCamera gameCamera,
+			SpriteBatch batch) {
 		super(Aspect.all(SpriteComponent.class));
 
 		this.batch = batch;
@@ -43,10 +44,12 @@ public class SpriteRenderSystem extends EntitySystem {
 	protected void renderSpriteComponent(SpriteComponent sprite) {
 		if (sprite.isVisible())
 			if (!sprite.isAnimation())
-				batch.draw(sprite.getTexture(), sprite.getPosX() + sprite.getPaddingLeft(),
+				batch.draw(sprite.getTexture(),
+						sprite.getPosX() + sprite.getPaddingLeft(),
 						sprite.getPosY() + sprite.getPaddingBottom());
 			else
-				batch.draw(sprite.getTexture(world.getDelta()), sprite.getPosX() + sprite.getPaddingLeft(),
+				batch.draw(sprite.getTexture(world.getDelta()),
+						sprite.getPosX() + sprite.getPaddingLeft(),
 						sprite.getPosY() + sprite.getPaddingBottom());
 	}
 

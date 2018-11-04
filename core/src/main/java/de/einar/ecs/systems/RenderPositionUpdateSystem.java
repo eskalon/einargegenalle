@@ -44,7 +44,8 @@ public class RenderPositionUpdateSystem extends IteratingSystem {
 						PositionConverter.toPixels(lerpComp.targetPosX),
 						(lerpComp.intervall / PhysicsSystem.interval)));
 
-				y = Math.round((int) lerp(spriteComp.getPosY(), PositionConverter.toPixels(lerpComp.targetPosY),
+				y = Math.round((int) lerp(spriteComp.getPosY(),
+						PositionConverter.toPixels(lerpComp.targetPosY),
 						(lerpComp.intervall / PhysicsSystem.interval)));
 
 			}

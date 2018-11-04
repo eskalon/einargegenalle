@@ -42,7 +42,8 @@ public class EnemyInitSystem extends IteratingSystem {
 
 		if (!ene.isStarted() && posEnemyX < 1281) {
 			ene.setStarted(true);
-			phy.setVel(PositionConverter.toPhysicUnits(new Vector2(ene.getSpeed(), 0)));
+			phy.setVel(PositionConverter
+					.toPhysicUnits(new Vector2(ene.getSpeed(), 0)));
 
 			if (RandomUtils.rollTheDice(4)) {
 				bus.post(new JamSoundEvent());

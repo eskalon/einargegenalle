@@ -34,7 +34,9 @@ public class WorldGenerator {
 
 		// FLOOR
 		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(PositionConverter.toPhysicUnits(1280 * GameSession.worldLenght * 2),
+		shape.setAsBox(
+				PositionConverter
+						.toPhysicUnits(1280 * GameSession.worldLenght * 2),
 				PositionConverter.toPhysicUnits(50));
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
@@ -43,15 +45,17 @@ public class WorldGenerator {
 		fixtureDef.filter.categoryBits = Category.BOUNDARY;
 		fixtureDef.filter.maskBits = Mask.BOUNDARY;
 
-		Body body = PhysicsComponent.createBody(physicsWorld, BodyType.StaticBody, 1280 * GameSession.worldLenght, 100,
-				null, null, true, fixtureDef);
+		Body body = PhysicsComponent.createBody(physicsWorld,
+				BodyType.StaticBody, 1280 * GameSession.worldLenght, 100, null,
+				null, true, fixtureDef);
 		MassData floorMassData = new MassData();
 		floorMassData.mass = 10000;
 		body.setMassData(floorMassData);
 
 		// ANCHOR
 		PolygonShape shape2 = new PolygonShape();
-		shape2.setAsBox(PositionConverter.toPhysicUnits(15), PositionConverter.toPhysicUnits(15));
+		shape2.setAsBox(PositionConverter.toPhysicUnits(15),
+				PositionConverter.toPhysicUnits(15));
 		FixtureDef fixtureDef2 = new FixtureDef();
 		fixtureDef2.shape = shape2;
 		fixtureDef2.density = 1f;
@@ -59,8 +63,10 @@ public class WorldGenerator {
 		fixtureDef2.filter.categoryBits = Category.BOUNDARY;
 		fixtureDef2.filter.maskBits = Mask.BOUNDARY;
 
-		Body body2 = PhysicsComponent.createBody(physicsWorld, BodyType.DynamicBody, 20, 200,
-				new Vector2(-GameSession.worldSpeed, 0), null, true, fixtureDef2);
+		Body body2 = PhysicsComponent.createBody(physicsWorld,
+				BodyType.DynamicBody, 20, 200,
+				new Vector2(-GameSession.worldSpeed, 0), null, true,
+				fixtureDef2);
 
 		// STUFF
 		ObstacleList list = new ObstacleList(35);
@@ -70,9 +76,13 @@ public class WorldGenerator {
 			if (posX < (1280 * (GameSession.worldLenght - 0.1)) && posX > 1300)
 				if (RandomUtils.getRandomNumber(1, 3) <= 2) {
 					EnemyFactory.createCar(ecsWorld, physicsWorld, posX,
-							RandomUtils.getRandomNumber(GameSession.carSpeed - 30, GameSession.carSpeed), bus);
+							RandomUtils.getRandomNumber(
+									GameSession.carSpeed - 30,
+									GameSession.carSpeed),
+							bus);
 				} else
-					EnemyFactory.createGrandma(ecsWorld, physicsWorld, posX, GameSession.worldSpeed, bus);
+					EnemyFactory.createGrandma(ecsWorld, physicsWorld, posX,
+							GameSession.worldSpeed, bus);
 		}
 
 		PropsFactory.createBackground(ecsWorld, physicsWorld);

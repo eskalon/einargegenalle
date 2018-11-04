@@ -16,13 +16,15 @@ public class GrannyPhysicsListener implements CollisionListener {
 	}
 
 	@Override
-	public void beginContact(Contact contact, Entity granny, Entity collidingEntity) {
+	public void beginContact(Contact contact, Entity granny,
+			Entity collidingEntity) {
 		if (collidingEntity != null) {
 			GrannyContatcEvent ev = new GrannyContatcEvent();
-			ev.byPlayer = collidingEntity.getComponent(PlayerComponent.class) != null;
+			ev.byPlayer = collidingEntity
+					.getComponent(PlayerComponent.class) != null;
 			ev.granny = granny;
 			bus.post(ev);
-		}		
+		}
 	}
 
 }
