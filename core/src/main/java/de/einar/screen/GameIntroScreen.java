@@ -202,7 +202,7 @@ public class GameIntroScreen extends BaseUIScreen {
 								new TextureRegion(option1_2PhoneTexture)));
 						sideTable.clear();
 						sideTable.add(option1aMessageButton).padLeft(50).row();
-						sideTable.add(option1bMessageButton).padLeft(50);
+						sideTable.add(option1bMessageButton).padLeft(50).padTop(25);
 					}
 				}, 2.5F);
 
@@ -318,7 +318,7 @@ public class GameIntroScreen extends BaseUIScreen {
 								new TextureRegion(option2_2PhoneTexture)));
 						sideTable.clear();
 						sideTable.add(option2aMessageButton).padLeft(50).row();
-						sideTable.add(option2bMessageButton).padLeft(50);
+						sideTable.add(option2bMessageButton).padLeft(50).padTop(25);
 					}
 				}, 2.5F);
 
@@ -434,7 +434,7 @@ public class GameIntroScreen extends BaseUIScreen {
 								new TextureRegion(option3_2PhoneTexture)));
 						sideTable.clear();
 						sideTable.add(option3aMessageButton).padLeft(50).row();
-						sideTable.add(option3bMessageButton).padLeft(50);
+						sideTable.add(option3bMessageButton).padLeft(50).padTop(25);
 					}
 				}, 2.5F);
 
@@ -550,7 +550,7 @@ public class GameIntroScreen extends BaseUIScreen {
 								new TextureRegion(option4_2PhoneTexture)));
 						sideTable.clear();
 						sideTable.add(option4aMessageButton).padLeft(50).row();
-						sideTable.add(option4bMessageButton).padLeft(50);
+						sideTable.add(option4bMessageButton).padLeft(50).padTop(25);
 					}
 				}, 2.5F);
 
@@ -644,9 +644,9 @@ public class GameIntroScreen extends BaseUIScreen {
 
 		mainTable.add(phoneImage).padBottom(5);
 		sideTable.add(sendFirstMessageButton).padLeft(50).row();
-		sideTable.add(sendSecondMessageButton).padLeft(50).row();
-		sideTable.add(sendThirdMessageButton).padLeft(50).row();
-		sideTable.add(sendFourthMessageButton).padLeft(50);
+		sideTable.add(sendSecondMessageButton).padLeft(50).padTop(25).row();
+		sideTable.add(sendThirdMessageButton).padLeft(50).padTop(25).row();
+		sideTable.add(sendFourthMessageButton).padLeft(50).padTop(25);
 		mainTable.add(sideTable);
 	}
 
