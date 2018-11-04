@@ -24,10 +24,12 @@ public class DesktopLauncher {
 
 		try {
 			// Start the game
-			new LwjglApplication(new EinarGame(args != null && args.length > 0 && "--debug".equalsIgnoreCase(args[0])),
-					config);
+			new LwjglApplication(new EinarGame(args != null && args.length > 0
+					&& "--debug".equalsIgnoreCase(args[0])), config);
 		} catch (Exception e) {
-			exitWithError(String.format("Beim Starten des Spiels ist ein unerwarteter Fehler aufgetreten: %s", e));
+			exitWithError(String.format(
+					"Beim Starten des Spiels ist ein unerwarteter Fehler aufgetreten: %s",
+					e));
 		}
 	}
 

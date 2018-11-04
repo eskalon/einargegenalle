@@ -34,9 +34,9 @@ public class GameScreen extends BaseScreen {
 	@InjectAsset("audio/street.wav")
 	private Sound streetSound;
 
-	@InjectAsset("ui/Full_Star.png")
+	@InjectAsset("ui/full_star.png")
 	private Texture fullStarTexture;
-	@InjectAsset("ui/Empty_Star.png")
+	@InjectAsset("ui/empty_star.png")
 	private Texture emptyStarTexture;
 
 	private long backgroundSoundId;
@@ -51,7 +51,8 @@ public class GameScreen extends BaseScreen {
 	public void show() {
 		super.show();
 
-		game.session = new GameSession(gameInputProcessor, game.getSpriteBatch(), game.getGameCamera(),
+		game.session = new GameSession(gameInputProcessor,
+				game.getSpriteBatch(), game.getGameCamera(),
 				game.getDebugCamera(), game.getEventBus());
 		game.getEventBus().register(game.session);
 
@@ -60,15 +61,17 @@ public class GameScreen extends BaseScreen {
 
 	@Override
 	public void render(float delta) {
-		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+		Gdx.gl.glClearColor(backgroundColor.r, backgroundColor.g,
+				backgroundColor.b, backgroundColor.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		game.getSpriteBatch().setProjectionMatrix(game.getGameCamera().combined);
+		game.getSpriteBatch()
+				.setProjectionMatrix(game.getGameCamera().combined);
 
-		// game.session.render(delta); // Render Systeme sind anscheinend nicht passiv
-		// (?)
+		// game.session.render(delta); // Render Systeme sind anscheinend nicht
+		// passiv (?)
 
-		if (game.showDebugStuff())
-			game.session.renderDebug();
+		// if (game.showDebugStuff())
+		// game.session.renderDebug();
 
 		game.session.update(delta);
 
@@ -79,9 +82,15 @@ public class GameScreen extends BaseScreen {
 		game.getSpriteBatch().begin();
 		game.getSpriteBatch().setProjectionMatrix(game.getUICamera().combined);
 
-		game.getSpriteBatch().draw(game.session.stars > 0 ? fullStarTexture : emptyStarTexture, 1100, 670, 50, 50);
-		game.getSpriteBatch().draw(game.session.stars > 1 ? fullStarTexture : emptyStarTexture, 1160, 670, 50, 50);
-		game.getSpriteBatch().draw(game.session.stars > 2 ? fullStarTexture : emptyStarTexture, 1220, 670, 50, 50);
+		game.getSpriteBatch().draw(
+				game.session.stars > 0 ? fullStarTexture : emptyStarTexture,
+				1100, 670, 50, 50);
+		game.getSpriteBatch().draw(
+				game.session.stars > 1 ? fullStarTexture : emptyStarTexture,
+				1160, 670, 50, 50);
+		game.getSpriteBatch().draw(
+				game.session.stars > 2 ? fullStarTexture : emptyStarTexture,
+				1220, 670, 50, 50);
 
 		game.getSpriteBatch().end();
 	}

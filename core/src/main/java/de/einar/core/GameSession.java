@@ -72,7 +72,7 @@ public class GameSession {
 		physicsSystem = new PhysicsSystem(physicsWorld);
 		WorldConfiguration config = new WorldConfigurationBuilder()
 				/* Render */
-				.withPassive(1, spriteRenderSystem).withPassive(1, debugRenderSystem)
+				.withPassive(1, spriteRenderSystem)/*.withPassive(1, debugRenderSystem)*/
 				/* Physics */
 				.with(new EntityPhysicsHandlerSystem(physicsWorld)).with(physicsSystem)
 				.with(new RenderPositionUpdateSystem())

@@ -11,9 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import de.damios.gamedev.asset.AnnotationAssetManager.InjectAsset;
 
 public class GamePoliceEndScreen extends BaseUIScreen {
-	
-	// TODO Hintergrundbild
-	@InjectAsset("ui/main-menu-background.png")
+	@InjectAsset("ui/police-background.png")
 	private Texture backgroundImage;
 	@InjectAsset("audio/button-tick.mp3")
 	private Sound clickSound;
@@ -27,21 +25,31 @@ public class GamePoliceEndScreen extends BaseUIScreen {
 	@Override
 	protected void initUI() {
 		super.backgroundTexture = backgroundImage;
-		
-		ImageButton testButton = new ImageButton(new TextureRegionDrawable(new TextureRegion(doneButtonImage)),
-				new TextureRegionDrawable(new TextureRegion(doneButtonDownImage)));
+
+		ImageButton testButton = new ImageButton(
+				new TextureRegionDrawable(new TextureRegion(doneButtonImage)),
+				new TextureRegionDrawable(
+						new TextureRegion(doneButtonDownImage)));
 		testButton.addListener(new InputListener() {
 			@Override
-			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+			public boolean touchDown(InputEvent event, float x, float y,
+					int pointer, int button) {
 				clickSound.play(1F);
 				game.pushScreen("mainMenu");
 				return true;
 			}
 		});
 
-		mainTable.add(testButton).padBottom(11f);
+		mainTable.add(testButton).padLeft(55).padBottom(11);
 
 		policeSound.play(1.1F);
+	}
+
+	@Override
+	public void hide() {
+		super.hide();
+
+		policeSound.stop();
 	}
 
 }
