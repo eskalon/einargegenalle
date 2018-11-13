@@ -13,6 +13,18 @@ public class GameInputProcessor implements InputProcessor {
 	private boolean leftMouse, rightMouse;
 	private int scrollAmount;
 
+	public void reset() {
+		left = false;
+		right = false;
+		up = false;
+		down = false;
+		escape = false;
+		space = false;
+		leftMouse = false;
+		rightMouse = false;
+		scrollAmount = 0;
+	}
+
 	// KEYS
 	@Override
 	public boolean keyDown(int keycode) {

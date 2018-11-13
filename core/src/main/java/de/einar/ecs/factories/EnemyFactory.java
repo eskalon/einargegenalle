@@ -28,7 +28,11 @@ import de.einar.util.PositionConverter;
 public class EnemyFactory {
 
 	@InjectAsset("textures/car_animation.png")
-	private static Texture carAnimationTexture;
+	private static Texture carAnimation1Texture;
+	@InjectAsset("textures/car_animation2.png")
+	private static Texture carAnimation2Texture;
+	@InjectAsset("textures/car_animation3.png")
+	private static Texture carAnimation3Texture;
 	@InjectAsset("textures/granny.png")
 	private static Texture grannyTexture;
 	@InjectAsset("textures/granny2.png")
@@ -41,7 +45,8 @@ public class EnemyFactory {
 	private static void createEnemy(com.artemis.World ecsWorld,
 			com.badlogic.gdx.physics.box2d.World physicsWorld,
 			SpriteComponent spriteComp, Shape shape, short cat, short mask,
-			int speed, int posX, int posY, CollisionListener collListener, int type) {
+			int speed, int posX, int posY, CollisionListener collListener,
+			int type) {
 		Entity e = ecsWorld.createEntity();
 
 		// PHYSICS
@@ -78,16 +83,33 @@ public class EnemyFactory {
 	public static void createCar(com.artemis.World ecsWorld,
 			com.badlogic.gdx.physics.box2d.World physicsWorld, int posX,
 			int speed, EventBus bus) {
-		SpriteComponent comp = new SpriteComponent(carAnimationTexture, 0.025f,
-				1, 6, 0, 0, (-carAnimationTexture.getWidth() / 6 / 2),
-				(-carAnimationTexture.getHeight() / 2 + 1));
+		Texture t = null;
+
+		switch (RandomUtils.getRandomNumber(1, 3)) {
+		case 1: {
+			t = carAnimation1Texture;
+			break;
+		}
+		case 2: {
+			t = carAnimation2Texture;
+			break;
+		}
+		default:
+		case 3: {
+			t = carAnimation3Texture;
+		}
+		}
+
+		SpriteComponent comp = new SpriteComponent(t, 0.025f, 1, 6, 0, 0,
+				(-carAnimation1Texture.getWidth() / 6 / 2),
+				(-carAnimation1Texture.getHeight() / 2 + 1));
 
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(
 				PositionConverter.toPhysicUnits(
-						carAnimationTexture.getWidth() / 6 / 2 - 26),
+						carAnimation1Texture.getWidth() / 6 / 2 - 26),
 				PositionConverter.toPhysicUnits(
-						carAnimationTexture.getHeight() / 2 - 20));
+						carAnimation1Texture.getHeight() / 2 - 20));
 
 		createEnemy(ecsWorld, physicsWorld, comp, shape, Category.CAR, Mask.CAR,
 				speed, posX, 204, new CarPhysicsListener(bus), 1);
@@ -96,14 +118,15 @@ public class EnemyFactory {
 	public static void createGrandma(com.artemis.World ecsWorld,
 			com.badlogic.gdx.physics.box2d.World physicsWorld, int posX,
 			int speed, EventBus bus) {
-		
+
 		int type = RandomUtils.getRandomNumber(1, 2);
-		
+
 		CircleShape shape = new CircleShape();
 		shape.setRadius(PositionConverter.toPhysicUnits(120) / 2);
 		createEnemy(ecsWorld, physicsWorld,
-				new SpriteComponent(type == 1 ? grannyTexture : granny2Texture, 0, 0), shape,
-				Category.GRANNY, Mask.GRANNY, speed, posX, 216,
+				new SpriteComponent(type == 1 ? grannyTexture : granny2Texture,
+						0, 0),
+				shape, Category.GRANNY, Mask.GRANNY, speed, posX, 216,
 				new GrannyPhysicsListener(bus), type);
 	}
 

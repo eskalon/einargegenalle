@@ -40,7 +40,7 @@ public class EnemyInitSystem extends IteratingSystem {
 
 		EnemyComponent ene = enemyMapper.get(id);
 
-		if (!ene.isStarted() && posEnemyX < 1290) {
+		if (!ene.isStarted() && posEnemyX < 1350) {
 			ene.setStarted(true);
 			phy.setVel(PositionConverter
 					.toPhysicUnits(new Vector2(ene.getSpeed(), 0)));

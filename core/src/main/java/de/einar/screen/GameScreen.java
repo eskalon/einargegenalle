@@ -50,6 +50,7 @@ public class GameScreen extends BaseScreen {
 	@Override
 	public void show() {
 		super.show();
+		gameInputProcessor.reset();
 
 		game.session = new GameSession(gameInputProcessor,
 				game.getSpriteBatch(), game.getGameCamera(),
